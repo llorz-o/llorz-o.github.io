@@ -4,8 +4,8 @@
     "repository": "http://recoluan.gitlab.io/vuepress-theme-reco-doc",
     "author": "reco_luan",
     "scripts": {
-        "dev": "vuepress dev docs",
-        "build": "vuepress build docs"
+        "dev": "vuepress dev docmd",
+        "build": "vuepress build docmd"
     },
     "devDependencies": {
         "vuepress": "1.0.1",
