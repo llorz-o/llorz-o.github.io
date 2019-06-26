@@ -2,7 +2,7 @@ module.exports = {
   title: "Operate Sao",
   description: '你想来点骚操作吗？',
   dest: 'docs',
-  base: '/reco/',
+  // base: '/reco/',
   head: [
     ['link', {
       rel: 'icon',
@@ -63,7 +63,7 @@ module.exports = {
       placeholder:'我膝盖中了一箭 !Orz', // 
 
     },
-    logo: '/reco/head.jpeg',
+    logo: '/head.jpeg',
     // 博客设置
     type: 'blog',
     // 关闭华为文案
