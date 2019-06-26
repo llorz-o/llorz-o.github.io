@@ -1,41 +1,73 @@
 module.exports = {
-  title: "vuepress-theme-reco",
-  description: 'A simple and beautiful vuepress blog theme .',
+  title: "Operate Sao",
+  description: '你想来点骚操作吗？',
   dest: 'docs',
-  base:'/reco/',
+  base: '/reco/',
   head: [
-    ['link', { rel: 'icon', href: '/favicon.ico' }],
-    ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }]
+    ['link', {
+      rel: 'icon',
+      href: '/favicon.ico'
+    }],
+    ['meta', {
+      name: 'viewport',
+      content: 'width=device-width,initial-scale=1,user-scalable=no'
+    }]
   ],
   theme: 'reco',
   themeConfig: {
-    nav: [
-      { text: 'Home', link: '/', icon: 'reco-home' },
-      { text: 'TimeLine', link: '/timeLine/', icon: 'reco-date' },
-      { text: 'Contact', 
+    nav: [{
+        text: '主页',
+        link: '/',
+        icon: 'reco-home'
+      },
+      {
+        text: '时间线',
+        link: '/timeLine/',
+        icon: 'reco-date'
+      },
+      {
+        text: '关于我',
         icon: 'reco-message',
         items: [
-          { text: 'NPM', link: 'https://www.npmjs.com/~reco_luan', icon: 'reco-npm' },
-          { text: 'GitHub', link: 'https://github.com/recoluan', icon: 'reco-github' },
-          { text: '简书', link: 'https://www.jianshu.com/u/cd674a19515e', icon: 'reco-jianshu' },
-          { text: 'CSDN', link: 'https://blog.csdn.net/recoluan', icon: 'reco-csdn' },
-          { text: '博客圆', link: 'https://www.cnblogs.com/luanhewei/', icon: 'reco-bokeyuan' },
-          { text: 'WeChat', link: 'https://mp.weixin.qq.com/s/mXFqeUTegdvPliXknAAG_A', icon: 'reco-wechat' },
+          // { text: 'NPM', link: 'https://www.npmjs.com/~reco_luan', icon: 'reco-npm' },
+          {
+            text: 'GitHub',
+            link: 'https://github.com/Mrzhoulichao',
+            icon: 'reco-github'
+          },
+          // { text: '简书', link: 'https://www.jianshu.com/u/cd674a19515e', icon: 'reco-jianshu' },
+          // { text: 'CSDN', link: 'https://blog.csdn.net/recoluan', icon: 'reco-csdn' },
+          // { text: '博客圆', link: 'https://www.cnblogs.com/luanhewei/', icon: 'reco-bokeyuan' },
+          // { text: 'WeChat', link: 'https://mp.weixin.qq.com/s/mXFqeUTegdvPliXknAAG_A', icon: 'reco-wechat' },
         ]
       }
     ],
-    // 博客设置
+
     blogConfig: {
       category: {
         location: 2, // 在导航栏菜单中所占的位置，默认2
-        text: 'Category' // 默认 “分类”
+        text: '分类' // 默认 “分类”
       },
       tag: {
         location: 3, // 在导航栏菜单中所占的位置，默认3
-        text: 'Tag' // 默认 “标签”
+        text: '标签' // 默认 “标签”
       }
     },
-    logo: '/head.png',
+    // valine
+    valineConfig: {
+      appId: '9csYWHvENKpqFaCL7gssFKk3-gzGzoHsz',// your appId
+      appKey: 'w3k3QT2vQMEXEnAf0VzdUjzK', // your appKey
+      notify: true, // 邮件提醒
+      verify:true, // 评论验证
+      avatar:'robohash', 
+      placeholder:'我膝盖中了一箭 !Orz', // 
+
+    },
+    logo: '/head.jpeg',
+    // 博客设置
+    type: 'blog',
+    // 关闭华为文案
+    huawei: false, 
     // 搜索设置
     search: true,
     searchMaxSuggestions: 10,
@@ -44,17 +76,17 @@ module.exports = {
     // 最后更新时间
     lastUpdated: 'Last Updated',
     // 作者
-    author: 'reco_luan',
+    author: '__zhou',
     // 备案号
-    record: 'xxxx',
+    // record: 'xxxx',
     // 项目开始时间
-    startYear: '2017'
+    startYear: '2019',
     /**
      * 密钥 (if your blog is private)
      */
 
     // keyPage: {
-    //   keys: ['your password'],
+    //   keys: ['725361'],
     //   color: '#42b983',
     //   lineColor: '#42b983'
     // },
@@ -63,13 +95,13 @@ module.exports = {
      * valine 设置 (if you need valine comment )
      */
 
-    // valineConfig: {
-    //   appId: '...',// your appId
-    //   appKey: '...', // your appKey
-    // }
+    valineConfig: {
+      appId: '...', //your appId
+      appKey: '...', // your appKey
+    }
   },
   markdown: {
     lineNumbers: true
   },
   plugins: ['@vuepress/medium-zoom', 'flowchart']
-}  
+}

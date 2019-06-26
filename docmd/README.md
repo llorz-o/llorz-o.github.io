@@ -10,7 +10,7 @@ heroImageStyle: {
   borderRadius: '1rem',
 }
 isShowTitleInHome: false
-actionText: Guide
+actionText: Go
 actionLink: /views/other/guide
 features:
 - title: Yesterday
