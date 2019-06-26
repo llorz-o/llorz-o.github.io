@@ -8,7 +8,7 @@ categories:
  - Chaos
 ---
 
-:::Tip
+:::tip
 将本主题的书写规则复述一遍，复读机！
 :::
 
