@@ -63,7 +63,7 @@ module.exports = {
       placeholder:'我膝盖中了一箭 !Orz', // 
 
     },
-    logo: '/head.jpeg',
+    logo: '/reco/head.jpeg',
     // 博客设置
     type: 'blog',
     // 关闭华为文案

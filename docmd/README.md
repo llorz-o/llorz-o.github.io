@@ -26,12 +26,3 @@ heroImageStyle: {
   display:none;
 }
 </style>
-
-<script>
-onload = function(){
-  var right_head_img = window.document.getElementsByClassName('personal-img')[0],
-      old_src = right_head_img.getAttribute('src')
-
-  right_head_img.setAttribute('src','/reco' + old_src)
-}
-</script>
