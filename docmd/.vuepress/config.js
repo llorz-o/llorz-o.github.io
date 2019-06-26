@@ -2,7 +2,7 @@ module.exports = {
   title: "Operate Sao",
   description: '你想来点骚操作吗？',
   dest: 'docs',
-  // base: '/reco/',
+  base: '/reco/',
   head: [
     ['link', {
       rel: 'icon',
@@ -95,10 +95,10 @@ module.exports = {
      * valine 设置 (if you need valine comment )
      */
 
-    valineConfig: {
-      appId: '...', //your appId
-      appKey: '...', // your appKey
-    }
+    // valineConfig: {
+    //   appId: '...', //your appId
+    //   appKey: '...', // your appKey
+    // }
   },
   markdown: {
     lineNumbers: true

@@ -53,6 +53,6 @@ faceImage: '/head.png'
 
 <!-- more --> 
 
-分割线
+分割线...
 
 ```

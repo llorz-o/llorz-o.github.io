@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: /reco/hero.png
+# heroImage: /reco/hero.png
 heroImageStyle: {
   maxWidth: '600px',
   width: '100%',
@@ -20,3 +20,18 @@ heroImageStyle: {
 # - title: Tomorrow
 #   details: 希望更多的爱好者能够参与进来，帮助这个主题更好的成长
 ---
+
+<style>
+#app .logo{
+  display:none;
+}
+</style>
+
+<script>
+onload = function(){
+  var right_head_img = window.document.getElementsByClassName('personal-img')[0],
+      old_src = right_head_img.getAttribute('src')
+
+  right_head_img.setAttribute('src','/reco' + old_src)
+}
+</script>
