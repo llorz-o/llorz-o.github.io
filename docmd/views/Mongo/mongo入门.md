@@ -1,7 +1,6 @@
 ---
 title: Mongodb入门篇
-date: 2019-6-26
-author: '作者'
+date: 2019-6-28
 keys:
 - '725361' 
 categories:

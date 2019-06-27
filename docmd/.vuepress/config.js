@@ -16,43 +16,42 @@ module.exports = {
   theme: 'reco',
   themeConfig: {
     nav: [{
-      text: '主页',
-      link: '/',
-      icon: 'reco-home'
-    },
-    {
-      text: '时间线',
-      link: '/timeLine/',
-      icon: 'reco-date'
-    },
-    {
-      text:'说说',
-      link:'/say/',
-      icon:'reco-account'
-    },
-    {
-      text:'收藏',
-      link:'/collection/',
-      icon:'reco-other'
-    },
-    {
-      text: '关于我',
-      icon: 'reco-message',
-      items: [
-        // { text: 'NPM', link: 'https://www.npmjs.com/~reco_luan', icon: 'reco-npm' },
-        {
-          text: 'GitHub',
-          link: 'https://github.com/Mrzhoulichao',
-          icon: 'reco-github'
-        },
-        // { text: '简书', link: 'https://www.jianshu.com/u/cd674a19515e', icon: 'reco-jianshu' },
-        // { text: 'CSDN', link: 'https://blog.csdn.net/recoluan', icon: 'reco-csdn' },
-        // { text: '博客圆', link: 'https://www.cnblogs.com/luanhewei/', icon: 'reco-bokeyuan' },
-        // { text: 'WeChat', link: 'https://mp.weixin.qq.com/s/mXFqeUTegdvPliXknAAG_A', icon: 'reco-wechat' },
-      ]
-    },
+        text: '主页',
+        link: '/',
+        icon: 'reco-home'
+      },
+      {
+        text: '时间线',
+        link: '/timeLine/',
+        icon: 'reco-date'
+      },
+      {
+        text: '说说',
+        link: '/say/',
+        icon: 'reco-account'
+      },
+      {
+        text: '收藏',
+        link: '/collection/',
+        icon: 'reco-other'
+      },
+      {
+        text: '关于我',
+        icon: 'reco-message',
+        items: [
+          // { text: 'NPM', link: 'https://www.npmjs.com/~reco_luan', icon: 'reco-npm' },
+          {
+            text: 'GitHub',
+            link: 'https://github.com/Mrzhoulichao',
+            icon: 'reco-github'
+          },
+          // { text: '简书', link: 'https://www.jianshu.com/u/cd674a19515e', icon: 'reco-jianshu' },
+          // { text: 'CSDN', link: 'https://blog.csdn.net/recoluan', icon: 'reco-csdn' },
+          // { text: '博客圆', link: 'https://www.cnblogs.com/luanhewei/', icon: 'reco-bokeyuan' },
+          // { text: 'WeChat', link: 'https://mp.weixin.qq.com/s/mXFqeUTegdvPliXknAAG_A', icon: 'reco-wechat' },
+        ]
+      },
     ],
-
     blogConfig: {
       category: {
         location: 2, // 在导航栏菜单中所占的位置，默认2
@@ -65,7 +64,7 @@ module.exports = {
     },
     // valine
     valineConfig: {
-      appId: '9csYWHvENKpqFaCL7gssFKk3-gzGzoHsz',// your appId
+      appId: '9csYWHvENKpqFaCL7gssFKk3-gzGzoHsz', // your appId
       appKey: 'w3k3QT2vQMEXEnAf0VzdUjzK', // your appKey
       notify: true, // 邮件提醒
       verify: true, // 评论验证
@@ -109,6 +108,10 @@ module.exports = {
     //   appId: '...', //your appId
     //   appKey: '...', // your appKey
     // }
+    serviceWorker:{
+      updatePopup:true,
+    },
+    lastUpdated:'最后一次修改于'
   },
   markdown: {
     lineNumbers: true
