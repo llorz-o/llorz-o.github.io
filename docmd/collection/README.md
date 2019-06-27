@@ -11,3 +11,9 @@
 ### 文档
 
 - [OBKoro1](http://obkoro1.com/web_accumulate/) vuepress构建的，偏文档类 **前端**
+
+### 教学
+
+- [JSPang](https://jspang.com/) 免费的前端教程，章节附带视频，听说要做1000期免费的哦
+- [廖雪峰](https://www.liaoxuefeng.com/) 大佬我就不说了，看到就是赚到。前端到后端的免费教程
+- [阮一峰](http://www.ruanyifeng.com/blog/) 划水大佬，最近不怎么出技术流文章了，但胜在知识面宽泛。
