@@ -8,12 +8,10 @@
     "build": "vuepress build docmd"
   },
   "devDependencies": {
-    "vuepress": "1.0.1",
-    "vuepress-theme-reco": "1.0.0-alpha.25",
     "@vuepress/plugin-medium-zoom": "1.0.0-alpha.0",
-    "vuepress-plugin-flowchart": "1.4.3"
+    "vuepress": "^1.0.0-rc.1",
+    "vuepress-plugin-flowchart": "1.4.3",
+    "vuepress-theme-reco": "1.0.0-alpha.25"
   },
-  "dependencies": {
-    "vuepress": "^1.0.1"
-  }
+  "dependencies": {}
 }
