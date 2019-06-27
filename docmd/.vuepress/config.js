@@ -16,31 +16,31 @@ module.exports = {
   theme: 'reco',
   themeConfig: {
     nav: [{
-        text: '主页',
-        link: '/',
-        icon: 'reco-home'
-      },
-      {
-        text: '时间线',
-        link: '/timeLine/',
-        icon: 'reco-date'
-      },
-      {
-        text: '关于我',
-        icon: 'reco-message',
-        items: [
-          // { text: 'NPM', link: 'https://www.npmjs.com/~reco_luan', icon: 'reco-npm' },
-          {
-            text: 'GitHub',
-            link: 'https://github.com/Mrzhoulichao',
-            icon: 'reco-github'
-          },
-          // { text: '简书', link: 'https://www.jianshu.com/u/cd674a19515e', icon: 'reco-jianshu' },
-          // { text: 'CSDN', link: 'https://blog.csdn.net/recoluan', icon: 'reco-csdn' },
-          // { text: '博客圆', link: 'https://www.cnblogs.com/luanhewei/', icon: 'reco-bokeyuan' },
-          // { text: 'WeChat', link: 'https://mp.weixin.qq.com/s/mXFqeUTegdvPliXknAAG_A', icon: 'reco-wechat' },
-        ]
-      }
+      text: '主页',
+      link: '/',
+      icon: 'reco-home'
+    },
+    {
+      text: '时间线',
+      link: '/timeLine/',
+      icon: 'reco-date'
+    },
+    {
+      text: '关于我',
+      icon: 'reco-message',
+      items: [
+        // { text: 'NPM', link: 'https://www.npmjs.com/~reco_luan', icon: 'reco-npm' },
+        {
+          text: 'GitHub',
+          link: 'https://github.com/Mrzhoulichao',
+          icon: 'reco-github'
+        },
+        // { text: '简书', link: 'https://www.jianshu.com/u/cd674a19515e', icon: 'reco-jianshu' },
+        // { text: 'CSDN', link: 'https://blog.csdn.net/recoluan', icon: 'reco-csdn' },
+        // { text: '博客圆', link: 'https://www.cnblogs.com/luanhewei/', icon: 'reco-bokeyuan' },
+        // { text: 'WeChat', link: 'https://mp.weixin.qq.com/s/mXFqeUTegdvPliXknAAG_A', icon: 'reco-wechat' },
+      ]
+    }
     ],
 
     blogConfig: {
@@ -58,16 +58,16 @@ module.exports = {
       appId: '9csYWHvENKpqFaCL7gssFKk3-gzGzoHsz',// your appId
       appKey: 'w3k3QT2vQMEXEnAf0VzdUjzK', // your appKey
       notify: true, // 邮件提醒
-      verify:true, // 评论验证
-      avatar:'robohash', 
-      placeholder:'我膝盖中了一箭 !Orz', // 
+      verify: true, // 评论验证
+      avatar: 'robohash',
+      placeholder: '我膝盖中了一箭 !Orz', // 
 
     },
     logo: '/reco/head.jpeg',
     // 博客设置
     type: 'blog',
     // 关闭华为文案
-    huawei: false, 
+    huawei: false,
     // 搜索设置
     search: true,
     searchMaxSuggestions: 10,
@@ -103,5 +103,12 @@ module.exports = {
   markdown: {
     lineNumbers: true
   },
-  plugins: ['@vuepress/medium-zoom', 'flowchart']
+  plugins: ['@vuepress/medium-zoom', 'flowchart'],
+  configureWebpack: {
+    resolve: {
+      alias: {
+        '@img': 'assets/img'
+      }
+    }
+  }
 }
