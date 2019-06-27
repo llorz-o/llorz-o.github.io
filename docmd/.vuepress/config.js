@@ -26,6 +26,16 @@ module.exports = {
       icon: 'reco-date'
     },
     {
+      text:'说说',
+      link:'/say/',
+      icon:'reco-account'
+    },
+    {
+      text:'收藏',
+      link:'/collection/',
+      icon:'reco-other'
+    },
+    {
       text: '关于我',
       icon: 'reco-message',
       items: [
@@ -40,7 +50,7 @@ module.exports = {
         // { text: '博客圆', link: 'https://www.cnblogs.com/luanhewei/', icon: 'reco-bokeyuan' },
         // { text: 'WeChat', link: 'https://mp.weixin.qq.com/s/mXFqeUTegdvPliXknAAG_A', icon: 'reco-wechat' },
       ]
-    }
+    },
     ],
 
     blogConfig: {
