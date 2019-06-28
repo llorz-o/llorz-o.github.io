@@ -103,3 +103,116 @@ true
 mongodb采用小驼峰命名法
 :::
 
+
+
+
+## js写mongo
+
+```js
+
+var user_name = 'zhoulichao'
+var timeStamp = Date.parse(new Date())
+var data = {
+    "loginname":user_name,
+    "logintime":timeStamp
+}
+var db = connect('log') // 链接数据库，没有则创建
+db.login.insert(data) // 在 login 集合中插入 data 数据，没有则创建
+
+print('[demo]: log print success')
+
+```
+
+> 这里的js建议使用`var` 来命名变量，如果使用 `let` 命名 `db` 时会产生一个预期之外的错误。其他的变量如`user_name,timeStamp,data`则不会产生该错误，
+鉴于避免未知错误的发生，应避免使用 `let`
+
+### batch insert 批量插入
+
+```js
+
+var data = [ // 以数组形式就是批量插入
+    {
+        "_id":1
+    }
+    ,{
+        "_id":2
+    }
+    ,{
+        "_id":3
+    }
+]
+
+var db = connect('test')
+
+db.batch.insert(data)
+
+print('[test]: batch insert success')
+
+```
+
+> 批量插入单次数据量不可超过 `48m`，`3.2`之前的版本使用`batchInsert()`
+
+### 插入性能对比
+
+```js
+
+/* 测试批量插入与循环插入的性能 */
+
+var origin_data = 'qwertyuiopasdfghjklzxcvbnm1234567890_-'.split(''),
+    len = origin_data.length,
+    data = []
+var generation = function(){
+    var random = Math.floor(Math.random() * len)
+    return origin_data[random]
+}
+
+var len_generation = function(min,max){
+    return Math.floor(Math.random() * (max -min)) + min
+}
+
+var str_generation = function(num){
+    let res = ''
+    for(let i = 0; i < num; i++){
+        res += generation()
+    }
+    return res
+}
+
+var data_generation = function(num){
+
+    for(let i = 0;i < num ; i++){
+        data.push({
+            name:str_generation(len_generation(5,10)),
+            text:str_generation(len_generation(10,20))
+        })
+    }
+
+}
+
+data_generation(100)
+
+var db = connect('test')
+
+var cycle = function(){
+    let begin = new Date().getTime()
+    data.forEach(item => {
+        db.diff.insert(item)
+    })
+    print(new Date().getTime() - begin, 'cycle insert ms')
+}
+
+var batch = function(){
+    let begin = new Date().getTime()
+    db.diff.insert(data)
+    print(new Date().getTime() - begin, 'batch insert ms')
+}
+
+cycle()
+batch()
+
+// 50 cycle insert ms
+// 2 batch insert ms
+
+```
+
+毫无疑问批量插入是最快的方式
