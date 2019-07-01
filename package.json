@@ -9,9 +9,12 @@
   },
   "devDependencies": {
     "@vuepress/plugin-medium-zoom": "1.0.0-alpha.0",
+    "less-loader": "^5.0.0",
     "vuepress": "^1.0.0-rc.1",
     "vuepress-plugin-flowchart": "1.4.3",
     "vuepress-theme-reco": "1.0.0-alpha.25"
   },
-  "dependencies": {}
+  "dependencies": {
+    "less-loader": "^5.0.0"
+  }
 }
