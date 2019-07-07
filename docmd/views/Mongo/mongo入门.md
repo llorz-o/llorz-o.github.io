@@ -445,7 +445,7 @@ db.test.find.sort({
 
 > ! skip(), limilt(), sort()三个放在一起执行的时候，执行的顺序是先 sort(), 然后是 skip()，最后是显示的 limit()。 
 
-### 索引
+## 索引
 
 1. createIndex(key :Object [,opts : Object])
 
@@ -487,7 +487,7 @@ db.test.ensureIndex({
 3. getIndexes()  查看集合索引 
 
 ```js
-db.test.getIndexs()
+db.test.getIndexes()
 ```
 
 4. totalIndexSize() 查看集合索引大小 
@@ -496,10 +496,10 @@ db.test.getIndexs()
 db.test.totalIndexSize()
 ```
 
-5. dropIndexs() 删除所有索引
+5. dropIndexes() 删除所有索引
 
 ```js
-db.test.dropIndexs()	
+db.test.dropIndexes()	
 ```
 
 6. dropIndex(name :String) 删除集合指定索引 
@@ -528,16 +528,13 @@ db.test.find({
 >
 >mongoDB 每个集合最多64个索引值
 >
->索引建立好后直接使用 `find ({name:'zhou'})`查询索引字段就行了,
+>索引建立好后直接使用 `find ({name:'zhou'})`查询索引字段就行了.
+>
+>因为普通查询默认包含 _id 字段，如果在普通查询和索引查询具有相同字段时禁用 _id 字段，就会导致普通查询被索引查询所覆盖。这样能提高查询速度
+>
+>多使用 [explain ](#explain())检测是否能使用索引
 
-**注意**
-
-- 数据不超万条时，不需要使用索引。性能的提升并不明显，而大大增加了内存和硬盘的消耗。
-- 查询数据超过表数据量30%时，不要使用索引字段查询。实际证明会比不使用索引更慢，因为它大量检索了索引表和我们原表。
-- 数字索引，要比字符串索引快的多，在百万级甚至千万级数据量面前，使用数字索引是个明确的选择。
-- 把你经常查询的数据做成一个内嵌数据（对象型的数据），然后集体进行索引
-
-#### 全文索引
+### 全文索引
 
 1. db.test.ensureIndex({conText:'text' })  使用text关键词来代表全文索引 
 
@@ -549,17 +546,533 @@ db.test.find({
 })
 ```
 
+### 索引限制
+
+- 数据不超万条时，不需要使用索引。性能的提升并不明显，而大大增加了内存和硬盘的消耗。
+- 查询数据超过表数据量30%时，不要使用索引字段查询。实际证明会比不使用索引更慢，因为它大量检索了索引表和我们原表。
+- 数字索引，要比字符串索引快的多，在百万级甚至千万级数据量面前，使用数字索引是个明确的选择。
+- 把你经常查询的数据做成一个内嵌数据（对象型的数据），然后集体进行索引
+- 索引储存在内存，所以索引不应超过内存大小
+- 索引不能被一下查询使用
+  - 正则表达式，非操作符，$nin,\$not..
+  - 算数运算符 $mod..
+  - $where 子句
+- 索引名的长度不能超过128个字符
+- 一个复合索引最多可以有31个字段
+
+## 聚合
+
+1. aggregate()
+
+```js
+db.diff.aggregate([{
+    $group:{
+        _id:'$name',
+        count:{
+            $sum:1
+        }
+    }
+}])
+// 
+```
+
+**聚合表达式**
+
+| 表达式    | 描述                                           | 实例                                                         |
+| --------- | ---------------------------------------------- | ------------------------------------------------------------ |
+| $sum      | 计算总和。                                     | db.mycol.aggregate([{$group : {_id : "$by_user", num_tutorial : {$sum : "$likes"}}}]) |
+| $avg      | 计算平均值                                     | db.mycol.aggregate([{$group : {_id : "$by_user", num_tutorial : {$avg : "$likes"}}}]) |
+| $min      | 获取集合中所有文档对应值得最小值。             | db.mycol.aggregate([{$group : {_id : "$by_user", num_tutorial : {$min : "$likes"}}}]) |
+| $max      | 获取集合中所有文档对应值得最大值。             | db.mycol.aggregate([{$group : {_id : "$by_user", num_tutorial : {$max : "$likes"}}}]) |
+| $push     | 在结果文档中插入值到一个数组中。               | db.mycol.aggregate([{$group : {_id : "$by_user", url : {$push: "$url"}}}]) |
+| $addToSet | 在结果文档中插入值到一个数组中，但不创建副本。 | db.mycol.aggregate([{$group : {_id : "$by_user", url : {$addToSet : "$url"}}}]) |
+| $first    | 根据资源文档的排序获取第一个文档数据。         | db.mycol.aggregate([{$group : {_id : "$by_user", first_url : {$first : "$url"}}}]) |
+| $last     | 根据资源文档的排序获取最后一个文档数据         | db.mycol.aggregate([{$group : {_id : "$by_user", last_url : {$last : "$url"}}}]) |
+
+## 管道符
+
+1. $project 修改输入文档的结构。可以用来重命名、增加或删除域，也可以用于创建计算结果以及嵌套文档。 
+
+```js
+var rs = db.runoob.aggregate({
+    $project:{
+        title:1,
+        author:1
+    }
+})
+
+// 输出这两个字段的值， 注意 _id 为默认输出
+_id:0, // 可关闭id的默认输出
+```
+
+2. $match：用于过滤数据，只输出符合条件的文档。match使用MongoDB的标准查询操作。
+
+```js
+var rs = db.runoob.aggregate([ // 注意这里的数组，有多个限制条件时，使用数组
+    {
+        $match:{
+            likes:{
+                $gt:70, //大于
+                $lte:200, // 小于等于
+            }
+        }
+    },
+    {
+        $group:{
+            _id:'$by_user',
+            count:{
+                $sum:1
+            }
+        }
+    }
+])
+// 多个限制条件下，由数组中第一个限制条件返回的结果，进入第二个限制条件
+```
+
+3. $limit  用来限制MongoDB聚合管道返回的文档数。 
+
+```js
+var rs = db.runoob.aggregate({
+    $skip:1
+})
+```
+
+4. $unwind 将文档中的某一个数组类型字段拆分成多条，每条包含数组中的一个值。 
+
+```js
+var rs = db.runoob.aggregate({
+    $unwind:'tags'
+})
+// 这在检索文章的标签时非常有用
+```
+
+5. $group 将集合中的文档分组，可用于统计结果。 
+
+```js
+db.diff.aggregate([{
+    $group:{
+        _id:'$name', // 按name属性进行分组
+        count:{
+            $sum:1, // 统计分组数量
+        }
+    }
+}])
+```
+
+6. $sort  输入文档排序后输出 
+
+```js
+var rs = db.runoob.aggregate({
+    $sort:{
+        likes:1
+    }
+})
+```
+
+7. $geoNear  输出接近某一地理位置的有序文档。
+
+```js
+
+```
+
+8. 时间聚合
+
+```js
+var rs = db.runoob.aggregate([
+    {$match:{m_id:10001,mark_time:{$gt:new Date(2017,8,0)}}},
+    {$group: {
+       _id: {$dayOfMonth:'$mark_time'},
+        pv: {$sum: 1}
+        }
+    },
+    {$sort: {"_id": 1}}
+])
+```
+
+时间关键字如下：
+
+-  $dayOfYear: 返回该日期是这一年的第几天（全年 366 天）。
+-  $dayOfMonth: 返回该日期是这一个月的第几天（1到31）。
+-  $dayOfWeek: 返回的是这个周的星期几（1：星期日，7：星期六）。
+-  $year: 返回该日期的年份部分。
+-  $month： 返回该日期的月份部分（ 1 到 12）。
+-  $week： 返回该日期是所在年的第几个星期（ 0 到 53）。
+-  $hour： 返回该日期的小时部分。
+-  $minute: 返回该日期的分钟部分。
+-  $second: 返回该日期的秒部分（以0到59之间的数字形式返回日期的第二部分，但可以是60来计算闰秒）。
+-  $millisecond：返回该日期的毫秒部分（ 0 到 999）。
+-  $dateToString： { $dateToString: { format: , date: } }。
+
+## 复制（副本集）
+
+> 复制可保障数据安全性，让数据具有高可用性，具有灾难恢复，无需停机维护，分布式读取数据的优点
+
+> 副本集是具有N个节点的集群，任何节点都可作为主节点，所有的写入操作都在主节点上，然后与副本集进行数据同步。副本集对故障能进行自动转移，自动恢复。
+
+```shell
+mongod --port 29077 --dbpath "C:\data\fb01" --replSet fb01
+# 启动端口号为 29077 名为 fb01（副本01） 的mongoDB实例
+mongo --port 29077
+# 连接到 29077 端口副本集
+rs.initiate()
+# 启动新的副本集
+rs.conf()
+# 查看副本集的配置
+rs.status()
+# 查看副本集状态
+```
+
+### 创建副本集
+
+```shell
+mongod --port 29077 --dbpath "C:\data\fb01" --replSet fb01
+mongod --port 29078 --dbpath "C:\data\fb02" --replSet fb01
+
+mongo --port 29077
+
+config = {
+    _id:'fb01', # 副本集名称，多个副本的名称需要保持一致
+    members:[
+        {
+            _id:0,
+            host:'localhost:29077', # fb01
+        },
+        {
+            _id:1,
+            host:'localhost:29078', # fb01
+        },
+    ]
+}
+
+rs.initiate(config)
+# 使用配置 初始化 副本集
+{
+        "ok" : 1,
+        "operationTime" : Timestamp(1562401664, 1),
+        "$clusterTime" : {
+                "clusterTime" : Timestamp(1562401664, 1),
+                "signature" : {
+                        "hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+                        "keyId" : NumberLong(0)
+                }
+        }
+}
+
+fb01:PRIMARY> rs.conf()
+# 查看副本集状态
+{
+        "_id" : "fb01",
+        "version" : 1,
+        "protocolVersion" : NumberLong(1),
+        "writeConcernMajorityJournalDefault" : true,
+        "members" : [ 		# 成员
+                {
+                        "_id" : 0,
+                        "host" : "localhost:29077",
+                        "arbiterOnly" : false,
+                        "buildIndexes" : true,
+                        "hidden" : false,
+                        "priority" : 1,
+                        "tags" : {
+
+                        },
+                        "slaveDelay" : NumberLong(0),
+                        "votes" : 1
+                },
+                {
+                        "_id" : 1,
+                        "host" : "localhost:29078",
+                        "arbiterOnly" : false,
+                        "buildIndexes" : true,
+                        "hidden" : false,
+                        "priority" : 1,
+                        "tags" : {
+
+                        },
+                        "slaveDelay" : NumberLong(0),
+                        "votes" : 1
+                }
+        ],
+        "settings" : {
+                "chainingAllowed" : true,
+                "heartbeatIntervalMillis" : 2000,
+                "heartbeatTimeoutSecs" : 10,
+                "electionTimeoutMillis" : 10000,
+                "catchUpTimeoutMillis" : -1,
+                "catchUpTakeoverDelayMillis" : 30000,
+                "getLastErrorModes" : {
+
+                },
+                "getLastErrorDefaults" : {
+                        "w" : 1,
+                        "wtimeout" : 0
+                },
+                "replicaSetId" : ObjectId("5d205b80e6d0fbe7d5626d81")
+        }
+}
+
+fb01:PRIMARY> rs.isMaster()
+# 查看当前副本 是否为主节点
+{
+        "hosts" : [
+                "localhost:29077",
+                "localhost:29078"
+        ],
+        "setName" : "fb01",
+        "setVersion" : 1,
+        "ismaster" : true,
+        "secondary" : false,
+        "primary" : "localhost:29077",
+        "me" : "localhost:29077",
+        "electionId" : ObjectId("7fffffff0000000000000001"),
+        "lastWrite" : {
+                "opTime" : {
+                        "ts" : Timestamp(1562401906, 1),
+                        "t" : NumberLong(1)
+                },
+                "lastWriteDate" : ISODate("2019-07-06T08:31:46Z"),
+                "majorityOpTime" : {
+                        "ts" : Timestamp(1562401906, 1),
+                        "t" : NumberLong(1)
+                },
+                "majorityWriteDate" : ISODate("2019-07-06T08:31:46Z")
+        },
+        "maxBsonObjectSize" : 16777216,
+        "maxMessageSizeBytes" : 48000000,
+        "maxWriteBatchSize" : 100000,
+        "localTime" : ISODate("2019-07-06T08:31:56.201Z"),
+        "logicalSessionTimeoutMinutes" : 30,
+        "minWireVersion" : 0,
+        "maxWireVersion" : 7,
+        "readOnly" : false,
+        "ok" : 1,
+        "operationTime" : Timestamp(1562401906, 1),
+        "$clusterTime" : {
+                "clusterTime" : Timestamp(1562401906, 1),
+                "signature" : {
+                        "hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+                        "keyId" : NumberLong(0)
+                }
+        }
+}
+
+# 接着打开 从库 的shell面板
+mongo --port 29078
+rs.isMaster()
+{
+        "hosts" : [
+                "localhost:29077",
+                "localhost:29078"
+        ],
+        "setName" : "fb01",
+        "setVersion" : 1,
+        "ismaster" : false, # 非主节点
+        "secondary" : true, # 副节点
+        "primary" : "localhost:29077",
+        "me" : "localhost:29078",
+        "lastWrite" : {
+                "opTime" : {
+                        "ts" : Timestamp(1562402086, 1),
+                        "t" : NumberLong(1)
+                },
+                "lastWriteDate" : ISODate("2019-07-06T08:34:46Z"),
+                "majorityOpTime" : {
+                        "ts" : Timestamp(1562402086, 1),
+                        "t" : NumberLong(1)
+                },
+                "majorityWriteDate" : ISODate("2019-07-06T08:34:46Z")
+        },
+        "maxBsonObjectSize" : 16777216,
+        "maxMessageSizeBytes" : 48000000,
+        "maxWriteBatchSize" : 100000,
+        "localTime" : ISODate("2019-07-06T08:34:51.857Z"),
+        "logicalSessionTimeoutMinutes" : 30,
+        "minWireVersion" : 0,
+        "maxWireVersion" : 7,
+        "readOnly" : false,
+        "ok" : 1,
+        "operationTime" : Timestamp(1562402086, 1),
+        "$clusterTime" : {
+                "clusterTime" : Timestamp(1562402086, 1),
+                "signature" : {
+                        "hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+                        "keyId" : NumberLong(0)
+                }
+        }
+}
+# 现在你直接 使用 show dbs 会报错
+rs.slaveOk()
+# 执行从库 的初始化
+# 现在开始你在主库写入数据，从库也能实时同步了
+```
+
+![mongodb主从副本集](http://yanxuan.nosdn.127.net/c3a740c6db2fc234a4e78af7933bc001.png)
+
+
+
+### 配置主从权重
+
+```bash
+# 注意需要在主库上操作
+cfg = rs.conf()
+cfg.members[0].priority = 2
+cfg.members[1].priority = 1
+rs.reconfig(cfg)
+```
+
+## 分片
+
+分片配置
+
+```shell
+Shard 1:27001 # 存储实际的数据块
+Shard 2:27002
+Shard 3:27003
+# 3.4 版本以后 config 必须为 集群
+Config Server:27000 conf01 # mongod实例,存储了整个集群元数据，包括分块信息
+Config Server:27222 conf01
+Route Process:30000 # 前端路由，客户端由此接入
+```
+
+创建Shard Server (分片服务)
+
+```shell
+mongod --port 27001 --dbpath=c:\data\shard\s1
+mongod --port 27002 --dbpath=c:\data\shard\s2
+mongod --port 27003 --dbpath=c:\data\shard\s3
+```
+
+[*config servers*](http://www.mongoing.com/docs/core/sharded-cluster-config-servers.html)：配置服务器存储群集的元数据和配置设置。从MongoDB 3.4开始，必须将配置服务器部署为副本集（CSRS） *参考官网文档*
+
+创建 Config Server 副本集
+
+```shell
+mongod --port 27000 --dbpath "c:\data\shard\config\fb01" --replSet fb01
+mongod --port 27222 --dbpath "c:\data\shard\config\fb02" --replSet fb01
+mongo --port 27000
+config = {
+    _id:'fb01',
+    member:[
+        {
+            _id:0,
+            host:'localhost:27000',
+        },
+         {
+            _id:1,
+            host:'localhost:27222',
+        },
+    ]
+}
+rs.initiate(config)
+mongo --port 27222
+rs.slaveOk()
+mongos --port 30000 --configdb fb01/localhost:27000,localhost:27222
+mongo --port 30000 # ok 进行到这一步的时候卡壳了。。。
+# 关于错误，截至我写到这里时仍没有一个好的解决方法
+```
+
+## 备份与恢复
+
+### 备份
+
+```shell
+# 备份之前记得打开服务 mongo
+mongodump -h localhost:27017 -d test -o c:\data\dump\test
+# -h 服务器地址
+# -d 数据库实例
+# -o 备份的数据输出目录
+```
+
+|         描述         |                        实例                         |
+| :------------------: | :-------------------------------------------------: |
+|     备份所有数据     |       mongodump --host localhost --port 27017       |
+| 指定数据输出指定目录 | mongodump --dbpath c:\data\db --out c:\data\dump\db |
+| 备份指定数据库的集合 |        mongodump --collection diff --db test        |
+
+### 恢复
+
+```shell
+# mongorestore -h <hostname><:port> -d dbname <path>
+# <path> 设置备份数据所在位置
+# --drop 用备份数据替换当前数据
+# --dir 指定备份的目录，无法同时指定<path> 和 --dir
+```
+
+## 监控
+
+1. mongostat  查看mongo状态
+2. mongotop <sleeptime> 提供每个集合的水平的统计数据 
+
+```js
+// sleeptime 是每次数据的间隔
+// --locks 这个是报告每个数据库的锁的使用中状态，需要数据库具有锁状态
+```
+
 
 
 ## 状态返回与安全
 
+普通数据库操作方法并没有任何的状态返回，用户无法得知修改的结果。
 
+**因此在实际使用中应该采用应答式方法。**
 
-​	
+```js
+db.diff.insert({
+    name:'zhou',
+    text:'feafeafea',
+})
+var resultState = db.runCommand({
+    getLastError:1
+})
+printjson(resultState)
+// => 
+/*
 
+{
+        "connectionId" : 1,
+        "updatedExisting" : true,
+        "n" : 2,
+        "syncMillis" : 0,
+        "writtenTo" : null,
+        "err" : null,
+        "ok" : 1
+}
 
+*/
+```
 
-## mongoDB 管理
+1. db.listCommands( )  查看所有的Commad命令 
+2. findAndModify 查找并修改 
+
+```js
+var modify = {
+    findAndModify:'diff',
+    query:{
+        name:'zhou',
+    },
+    update:{
+        $set:{
+            age:23
+        }
+    },
+    new:true // 更新完成，true 为查看结果，flase 反之
+}
+
+var rs = db.runCommand(modify)
+
+/*
+
+query：需要查询的条件/文档
+sort: 进行排序
+remove：[boolean]是否删除查找到的文档，值填写true，可以删除。
+new:[boolean]返回更新前的文档还是更新后的文档。
+fields：需要返回的字段
+upsert：没有这个值是否增加
+
+*/
+```
+
+## mongoDB 用户群
 
 > mongodb 默认给用户使用的是最高权限的账号，但是这样会造成使用上的数据不安全性。
 >
@@ -568,6 +1081,7 @@ db.test.find({
 1. db.createUser()
 
 ```js
+// 你需要先进入 admin 文档
 db.createUser({
     user:'zhoulicjhap',
     pwd:'725361',
@@ -600,6 +1114,10 @@ db.createUser({
 
 ```js
 db.system.users.find()
+// count 修饰符
+db.system.users.find().count()
+// or pretty()
+db.system.users.find().pretty()
 ```
 
 3. 删除用户
@@ -627,14 +1145,261 @@ mongod --auth
 5. 登录
 
 ```js
-mongom  -u username -p password 127.0.0.1:27017/admin
+mongo -u username -p password 127.0.0.1:27017/admin
+// 注意，一定要先连接至 admin
+```
+
+用户名`zlc`密码`725361`
+
+## 数据库关系
+
+### 嵌入式关系
+
+```js
+var user = [
+    {
+        name:'zhou',
+        address:[
+            {
+                countries:'china',
+                province:'hu bei',
+                city:'wu han',
+                area:'hong shan'
+            },{
+                countries:'china',
+                province:'hu bei',
+                city:'huang gang',
+                area:'ma cheng'
+            }
+        ]
+    }
+]
+```
+
+这样会产生的问题是数据无法重用，数据量会一直增长，影响读写性能
+
+### 引用式关系
+
+```js
+var user = [
+    {
+        name:'zhou',
+        address:[
+            ObjectId('52ffc4a5d85242602e000000'),
+            ObjectId('52ffc4a5d85242602e000001')
+        ]
+    }
+]
+```
+
+将用户信息和地址分文档储存，通过引用id建立关系
+
+## 数据库引用
+
+### DBRefs
+
+`{ $ref: <集合名>, $id:<引用id> , $db:<可选，数据库名>  }`
+
+```js
+var user = {
+    name:'zhou',
+    address:{
+        $ref:'address',
+        $id:ObjectId('52ffc4a5d85242602e000000'),
+        $db:'other'
+    }
+}
+```
+
+## 查询分析
+
+### explain()
+
+explain 操作提供了查询信息，使用索引及查询统计等。有利于我们对索引的优化 
+
+```shell
+ db.runoob.find({     likes:10 },{     title:1,     _id:0 }).explain()
+{
+        "queryPlanner" : {
+                "plannerVersion" : 1,
+                "namespace" : "test.runoob",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "likes" : {
+                                "$eq" : 10
+                        }
+                },
+                "winningPlan" : {
+                        "stage" : "PROJECTION",
+                        "transformBy" : {
+                                "title" : 1,
+                                "_id" : 0
+                        },
+                        "inputStage" : {
+                                "stage" : "COLLSCAN",
+                                "filter" : {
+                                        "likes" : {
+                                                "$eq" : 10
+                                        }
+                                },
+                                "direction" : "forward"
+                        }
+                },
+                "rejectedPlans" : [ ]
+        },
+        "serverInfo" : {
+                "host" : "DESKTOP-700R2G4",
+                "port" : 27017,
+                "version" : "4.0.4",
+                "gitVersion" : "f288a3bdf201007f3693c58e140056adf8b04839"
+        },
+        "ok" : 1
+}
+```
+
+- **indexOnly**: 字段为 true ，表示我们使用了索引。
+- **cursor**：因为这个查询使用了索引，MongoDB 中索引存储在B树结构中，所以这是也使用了 BtreeCursor 类型的游标。如果没有使用索引，游标的类型是 BasicCursor。这个键还会给出你所使用的索引的名称，你通过这个名称可以查看当前数据库下的system.indexes集合（系统自动创建，由于存储索引信息，这个稍微会提到）来得到索引的详细信息。
+- **n**：当前查询返回的文档数量。
+- **nscanned/nscannedObjects**：表明当前这次查询一共扫描了集合中多少个文档，我们的目的是，让这个数值和返回文档的数量越接近越好。
+- **millis**：当前查询所需时间，毫秒数。
+- **indexBounds**：当前查询具体使用的索引。
+
+### hint() 参照索引篇 hint
+
+## 原子操作
+
+参照 [状态返回与安全](#状态返回与安全) 这一章，使用 findAndModify() 方法确保修改的有效性，该方法返回修改的状态确保我们知道修改的成功与否，因为它的修改是同步的，这与sql的事务机制本质上要达到的功能是一样的。
+
+**原子操作命令**一般出现在update中
+
+```js
+db.users.findAndModify({
+    query:{
+        age:{
+            $gt:18
+        }
+    },
+    update:{
+        $push:{
+            tags:'未成年'
+        }
+    }
+})
 ```
 
 
 
+1. $set  对指定key更新value
 
+`$set:{key:value}`
 
+2. $unset 删除key对应的键值对
 
+`$unset:{key:value}`
 
+3. $inc 对value为数字的value进行增减
 
+`$inc:{age:1}`
+
+4. $push 追加到数组，如果没有则创建数组
+
+`$push:{key:value}`
+
+5. $pushAll 追加多个值到数组 (**不可用**)
+
+`$pushAll:{key:array}`
+
+6. $pull 在数组中删除一个和value相等的值
+
+`$pull:{key:value}`
+
+7. $addToSet 当value不存在于key的数组中，添加这个value
+
+`$addToSet:{key:value}`
+
+8. $pop 删除数组第一个或最后一个，-1删除第一个，1删除最后一个
+
+`$pop:{key:1 or -1}`
+
+9. rename 给key换一个字段
+
+`$rename:{key:new_key}`
+
+10. $ 代量 修改数组中的对象的属性
+
+```js
+comments:[
+    {
+        count:21
+    },
+    {
+        count:25
+    }
+]
+```
+
+`$inc:{'comments.$.count':1}`
+
+## ObjectId
+
+ObjectId 是一个12字节 BSON 类型数据，有以下格式：
+
+- 前4个字节表示时间戳
+- 接下来的3个字节是机器标识码
+- 紧接的两个字节由进程id组成（PID）
+- 最后三个字节是随机数
+
+`new_objec_id = new ObjectId()`手动生成ObjectId
+
+`ObjectId('5349b4ddd2781d08c09890f4').getTimestamp()` 返回创建时间
+
+`new ObjectId().str` 返回guid字符串
+
+## Map Reduce
+
+![map reduce](http://yanxuan.nosdn.127.net/f2cc5c392d7433da5bf52c7d82ece122.png)
+
+```js
+{ "_id" : ObjectId("5d221002ea2c383a764c0d26"), "id" : 116, "amount" : "100.00", "balance" : "100.00", "create_time" : "2019-07-03 11:43:30", "status" : null, "change_type" : 10 }
+{ "_id" : ObjectId("5d221002ea2c383a764c0d27"), "id" : 117, "amount" : "300.00", "balance" : "400.00", "create_time" : "2019-07-03 11:44:15", "status" : null, "change_type" : 10 }
+{ "_id" : ObjectId("5d221002ea2c383a764c0d28"), "id" : 118, "amount" : "300.00", "balance" : "700.00", "create_time" : "2019-07-03 11:45:14", "status" : null, "change_type" : 10 }
+{ "_id" : ObjectId("5d221002ea2c383a764c0d29"), "id" : 129, "amount" : "5000.00", "balance" : "5700.00", "create_time" : "2019-07-03 14:12:28", "status" : null, "change_type" : 10 }
+
+db.time.mapReduce(
+    function(){
+        emit(this.id,1) // => 
+        /*
+        
+        {
+        	116:[1]
+        },
+        {
+        	117:[1]
+        }
+        ...
+        */
+    },
+    function(k,v){
+        /*
+        {
+            _id:116, // 如果该key下有多个值时也只取第0个下标
+            value:1
+        }
+        */
+        return Array.sum(v)
+    },
+    {
+        query:{
+            status:null, // 查询所有
+        },
+        out:'time_total'
+    }
+).find() // =>
+//result
+{ "_id" : 116, "value" : 1 }
+{ "_id" : 117, "value" : 1 }
+{ "_id" : 118, "value" : 1 }
+{ "_id" : 129, "value" : 1 }
+
+```
 
