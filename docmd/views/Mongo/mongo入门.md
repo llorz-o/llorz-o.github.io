@@ -1403,3 +1403,77 @@ db.time.mapReduce(
 
 ```
 
+## 正则
+
+```js
+db.runoob.find({
+    context:/html/i, // 你可以检索文章
+    tags:/mongodb/i, // 也可以检索数组
+})
+```
+
+> 如果字段设置了索引，优先使用索引，这样比正则更快
+>
+> 正则表达式中使用变量 `context:eval("/" + variable + "/i")`
+
+MongoDB使用$regex操作符来设置匹配字符串的正则表达式，使用PCRE(Pert Compatible Regular Expression)作为正则表达式语言。 
+
+regex 操作符 `{key:{$regex:/pattern/,$options:'<option>'}}`
+
+正则表达式对象`{key:/pattern/<options>}`
+
+$regex 和正则表达式的区别
+
+- 在$in操作符中只能使用正则表达式对象。`{name:{$in:[/^joe/i,/^jack/]}}`
+- 在使用隐式的\$and操作符中，只能使用\$regex 。`{name:{$regex:/^jo/i,$nin:['john']}'}`
+- 当option选项中包含X或S选项时，只能使用$regex。`{name:{$regex:/m.*line/,$options:"si"}}`
+
+$regex 操作符的使用。（包括i, m, x以及S四个选项 ）
+
+- x 忽略非转义的空白字符，{<field>:{$regex:/pattern/,$options:'m'}，设置x选项后，正则表达式中的非转义的空白字符将被忽略，同时井号(#)被解释为注释的开头注，只能显式位于option选项中。 
+- s 单行匹配模式{<field>:{$regex:/pattern/,$options:'s'}，设置s选项后，会改变模式中的点号(.)元字符的默认行为，它会匹配所有字符，包括换行符(\n)，只能显式位于option选项中。 
+- 在设置索引的字段上进行正则匹配可以提高查询速度，而且当正则表达式使用的是前缀表达式时，查询速度会进一步提高，例如:{name:{$regex: /^joe/} 
+
+## 固定集合
+
+MongoDB 固定集合（Capped Collections）是性能出色且有着固定大小的集合 ，当集合空间用完后，再插入的元素就会覆盖最初始的头部的元素！
+
+ ```js
+// 创建固定集合
+db.createCollection('fixationCollection',{
+    capped:true, // 设置为创建固定集合
+    size:10000, // 集合大小
+    max:1000 // 文档个数
+})
+// 判断 time 是否为固定集合
+db.time.isCapped()
+// 将已存在集合转换为固定集合
+db.runCommand({
+    'convertToCapped':'posts', // 将posts 转换为固定集合
+    size:10000,
+})
+ ```
+
+固定集合文档按照插入顺序储存的,默认情况下查询就是按照插入顺序返回的,也可以使用$natural调整返回顺序。
+
+```
+>db.cappedLogCollection.find().sort({$natural:-1})
+```
+
+> 可以插入及更新,但更新不能超出collection的大小,否则更新失败,不允许删除,但是可以调用drop()删除集合中的所有行,但是drop后需要显式地重建集合。
+>
+> 在32位机子上一个cappped collection的最大值约为482.5M,64位上只受系统文件大小的限制。
+
+- 固定集合插入速度极快
+- 按插入顺序查询输出速度极快
+- 插入新数据时，如果数据量触顶将淘汰最旧数据
+
+### 使用场景
+
+- 储存日志
+- 缓存少量文档
+
+## 图形化管理工具
+
+1. [mongo-express](https://github.com/mongo-express/mongo-express )
+2. [adminMongo](https://github.com/mrvautin/adminMongo)
