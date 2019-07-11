@@ -1,8 +1,6 @@
 ---
 title: Mongodb入门篇
 date: 2019-6-28
-keys:
-- '725361'
 categories:
  - 数据库 
 tags:
@@ -62,7 +60,7 @@ zhoulichao
 5. `db.user.insert({"name":"zhoulichao"})` 插入数据
 6. `db.user.find()` 查询所有数据
 7. `db.user.findOne()` 查询第一条
-8. `db.user.update(Object<String>,Object<String>)` 更新，更改一条数据
+8. `db.user.update(Object\<String>,Object\<String>)` 更新，更改一条数据
 9. `db.user.remove({"name":"zhoulichao"})` 删除某一条
 10. `db.user.drop()` 整个集合
 11. `db.dropDatabase( )` 一定要先进入数据库，然后再删除
@@ -228,7 +226,7 @@ db.test.insert([
 ])
 
 ```
-2. save([ id:Object<String>,])
+2. save([ id:Object\<String>,])
 
 ```js
 
@@ -1001,7 +999,7 @@ mongodump -h localhost:27017 -d test -o c:\data\dump\test
 ## 监控
 
 1. mongostat  查看mongo状态
-2. mongotop <sleeptime> 提供每个集合的水平的统计数据 
+2. mongotop \<sleeptime> 提供每个集合的水平的统计数据 
 
 ```js
 // sleeptime 是每次数据的间隔
@@ -1430,8 +1428,8 @@ $regex 和正则表达式的区别
 
 $regex 操作符的使用。（包括i, m, x以及S四个选项 ）
 
-- x 忽略非转义的空白字符，{<field>:{$regex:/pattern/,$options:'m'}，设置x选项后，正则表达式中的非转义的空白字符将被忽略，同时井号(#)被解释为注释的开头注，只能显式位于option选项中。 
-- s 单行匹配模式{<field>:{$regex:/pattern/,$options:'s'}，设置s选项后，会改变模式中的点号(.)元字符的默认行为，它会匹配所有字符，包括换行符(\n)，只能显式位于option选项中。 
+- x 忽略非转义的空白字符，{\<field>:{\$regex:/pattern/,$options:'m'}，设置x选项后，正则表达式中的非转义的空白字符将被忽略，同时井号 \# 被解释为注释的开头注，只能显式位于option选项中。 
+- s 单行匹配模式{\<field>:{\$regex:/pattern/,$options:'s'}，设置s选项后，会改变模式中的点号(.)元字符的默认行为，它会匹配所有字符，包括换行符(\n)，只能显式位于option选项中。 
 - 在设置索引的字段上进行正则匹配可以提高查询速度，而且当正则表达式使用的是前缀表达式时，查询速度会进一步提高，例如:{name:{$regex: /^joe/} 
 
 ## 固定集合
