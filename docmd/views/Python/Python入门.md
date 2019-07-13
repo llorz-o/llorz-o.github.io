@@ -1,5 +1,5 @@
 ---
-	title: python入门篇
+title: python入门篇
 date: 2019-07-08
 keys:
  - 725361
@@ -722,4 +722,250 @@ int8 = functools.partial(int,base=8)
 ```
 
 **偏函数一般用于默认值的设定，也可用作关键字参数的手动默认值**
+
+## 模块
+
+目录组织模块
+
+```
+mycompany
+ ├─ web
+ │  ├─ __init__.py
+ │  ├─ utils.py
+ │  └─ www.py
+ ├─ __init__.py
+ ├─ abc.py
+ └─ utils.py
+```
+
+请注意，每一个包目录下面都会有一个`__init__.py`的文件，这个文件是必须存在的，否则，Python就把这个目录当成普通目录，而不是一个包。`__init__.py`可以是空文件，也可以有Python代码，因为`__init__.py`本身就是一个模块，而它的模块名就是`mycompany`。 
+
+文件`www.py`的模块名就是`mycompany.web.www`，两个文件`utils.py`的模块名分别是`mycompany.utils`和`mycompany.web.utils`。 
+
+**模块名不要以数字开头**
+
+### 使用模块
+
+```python
+# !/user/bin/dev python3
+# -*- coding utf-8 -*-
+
+#第1行和第2行是标准注释，
+# 第1行注释可以让这个hello.py文件直接在Unix/Linux/Mac上运行，
+# 第2行注释表示.py文件本身使用标准UTF-8编码
+
+' test module '
+# 表示模块的文档注释，任何模块代码的第一个字符串都被视为模块的文档注释；
+# 文档注释也可以用特殊变量__doc__访问
+
+__author__ = 'zhoulichao' 
+# 使用__author__变量把作者写进去
+# 双下划线的为特殊变量，一般个人变量不要使用这种方式命名
+# 特殊变量也属于非公开的
+
+import sys
+
+public = '公开变量'
+_private = '私有变量'
+# 非公开变量不应被直接引用，而不是不能被直接引用
+
+
+def test():
+    args = sys.argv
+    # argv 存储了命令行的所有参数
+    # argv 变量第一个参数永远是该py文件的名称
+    if len(args) == 1:
+        print('hello world!')
+    elif len(args) == 2:
+        print('hello %s' % args[1])
+        # python3 hello.py Michael获得的sys.argv就是['hello.py', 'Michael]。
+    else:
+        print('')
+
+if __name__ == "__main__":
+    test()
+
+# 当我们在命令行运行hello模块文件时，
+# Python解释器把一个特殊变量__name__置为__main__，
+# 而如果在其他地方导入该hello模块时，if判断将失败
+# 注意是命令行而不是python交互环境
+# 命令行 python test.py
+# 交互解释器 import test
+
+```
+
+### 第三方模块与包管理器 pip
+
+一般来说，第三方库都会在Python官方的[pypi.python.org](https://pypi.python.org/)网站注册，要安装一个第三方库，必须先知道该库的名称，可以在官网或者pypi上搜索，比如Pillow的名称叫[Pillow](https://pypi.python.org/pypi/Pillow/)，因此，安装Pillow的命令就是：
+
+```
+pip install Pillow
+```
+
+用pip一个一个安装费时费力，还需要考虑兼容性。我们推荐直接使用[Anaconda](https://www.anaconda.com/)，这是一个基于Python的数据处理和科学计算平台，它已经内置了许多非常有用的第三方库，我们装上Anaconda，就相当于把数十个第三方模块自动安装好了，非常简单易用。 [国内镜像](https://pan.baidu.com/s/1kU5OCOB#list/path=%2Fpub%2Fpython) 
+
+默认情况下，Python解释器会搜索当前目录、所有已安装的内置模块和第三方模块，搜索路径存放在`sys`模块的`path`变量中： 
+
+```shell
+>>> import sys 
+>>> sys.path
+['', '/Library/Frameworks/Python.framework/Versions/3.6/lib/python36.zip', '/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6', ..., '/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages']
+```
+
+添加自己的搜索目录
+
+```python
+# 直接修改sys.path，添加要搜索的目录
+>>> import sys
+>>> sys.path.append('/Users/michael/my_py_scripts')
+# OR
+# 设置环境变量PYTHONPATH，该环境变量的内容会被自动添加到模块搜索路径中。设置方式与设置Path环境变量类似。注意只需要添加你自己的搜索路径，Python自己本身的搜索路径不受影响。
+```
+
+## OOP 面向对象
+
+```python
+# class <className>(<extend>)
+# className 对象使用大驼峰命名
+# extend 继承自某个类，如果没有继承，就选用 object 
+# 所有的对象都继承 object 类
+class Student(object):
+    # 特殊方法__init__ 第一个参数永远是self 指向实例
+    # __init__ 方法相当于 constructor 构造器
+    def __init__(self,name,age,gender):
+        self.name = name
+        self.age = age
+        self.__gender = gender # 双下划线表明这是一个私有属性
+        
+    # 对象内部的方法第一个参数也是self，调用时同样可不传self，
+    # self 默认传入
+	def show(self):
+        print('name: %s,age: %d' % (self.name,self.age))
+     def get__gender(self):
+        return self.__gender
+bill = Student('Jeck',23)
+bill.name = 'Bill'
+```
+
+### 继承与多态
+
+```python
+class People(object):
+
+    def __init__(self,name):
+        self.name = name
+
+    def show(self):
+        print('我的名字叫: %s' % self.name)
+
+    def run(self):
+        print('我跑起来了')
+
+class Student(People):
+    def run(self): # 重写 run 方法
+        print('我是一名学生我也跑起来了')
+
+
+bill = Student('Bill')
+
+bill.show() #  的名字叫: Bill
+bill.run() # 我是一名学生我也跑起来了
+
+print(isinstance(bill,Student)) # True 判断实例的类型是否属于对象
+print(isinstance(bill,People)) # True
+```
+
+静态语言对数据的类型具有更高的控制度，它规定了方法的调用类型，必须满足类型才能使用，如 `java`
+
+而动态语言则不会有这种限制，只要有该方法即可调用。本质上这遵循了 "鸭辨原则"  ——“看起来像鸭子，走起路来像鸭子”，那它就可以被看做是鸭子。 
+
+### 获取对象信息
+
+#### type() 类型判断
+
+```python
+type(bill) # <class '__main__.Student'>
+
+# 判断是否是函数
+type(fn)==types.FunctionType
+# True
+type(abs)==types.BuiltinFunctionType
+# True
+type(lambda x: x)==types.LambdaType
+# True
+type((x for x in range(10)))==types.GeneratorType
+# True
+
+# isinstance 可以判断实例是否处于对象的继承链上
+```
+
+#### dir() 对象信息
+
+```python
+dir('abc')
+# ['__add__', '__class__',..., '__subclasshook__', 'capitalize', 'casefold',..., 'zfill']
+```
+
+`dir()`方法返回该数据类型的对象上所有的属性与方法
+
+`__len__`这样的特殊方法具有特殊用途，如`len()`方法会调用该参数对象上的`__len__`方法，所以你可以重写`__len__`方法.
+
+```python
+class Dog(object):
+    def __len__:
+        return 100
+dog = Dog()
+len(dog) # => 100
+```
+
+#### getattr(),setattr(),hasattr()
+
+```python
+hasattr(dog,'__len__') # 存在否
+setattr(dog,'name','金毛') # 设置
+getattr(dog,'name') # 得到
+getattr(dog,'name','dog') # 不存在返回默认值 dog 
+```
+
+### 实例属性与类属性
+
+```python
+class Student():
+    name = 'Jack' # 这种在类上设定的属性类似于 js 的原型属性
+    
+a = Student()
+a.name # Jack
+a.name = 'Ruth' # 这种设定会在实例上添加属性
+a.name # Ruth
+Student.name # Ruth
+```
+
+### \__slots__
+
+```python
+from types import MethodType
+
+def set_age(self,age):
+    self.age = age
+
+a.set_age = MethodType(set_age,a) # 给实例绑定方法
+# 但是该方法绑定的方法只作用于该实例
+
+# 给类绑定方法
+Student.set_age = set_age
+
+# 使用 __slots__ 限制实例添加属性
+# 同样只能限制当前类的实例，无法限制子类的
+class Student(object):
+    __slots__ = ('name','age') # 使用 tuple
+```
+
+###  @property
+
+```python
+# @property 装饰器用于在类创建前检查参数
+class Student(object):
+```
+
+
 
