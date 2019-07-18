@@ -257,8 +257,11 @@ AddType application/x-http-php .php .html .htm
 - echo
 
 ```php
-
 <?php
+    
+    header('content-type:text/html;charset=utf-8');
+	// 确保输出的文字字符集正确
+    
     //echo 可以不用 （）输出
     echo 'hello';
 	echo 'hello','world'
@@ -298,8 +301,260 @@ var_dump('nihao')
  <?php else: ?>
     <p>小朋友</p>
  <?php endif ?>
-
 ```
+
+## 变量
+
+### global
+
+使用global访问全局变量
+
+```php
+    $x = 10;
+    function Test(){
+    	global $x,$y; // 如果不使用global ，那么这里的$x相当于在函数内部声明了一个局部变量；
+        $y = 23
+        echo $x;
+	}
+
+$GLOBALS['y']; // 也可以使用这种方式获取全局变量
+```
+
+### Static
+
+static 关键字生命的变量在函数执行完毕后会保存状态；
+
+```php
+function Test(){
+    static $x = 0;
+    echo $x;
+    $x ++;
+}
+Test(); // 0
+Test(); // 1
+```
+
+## 类型比较
+
+![UTOOLS1563442255954.png](http://yanxuan.nosdn.127.net/6353e0c2377951297976bde3075a606a.png)
+
+## 常量
+
+常量是全局的
+
+```php
+define('NAME','张'[,bool $case_insensitive ]);
+// $case_insensitive 默认为false，即区分大小写
+```
+
+## String
+
+### 数值拼接
+
+```php
+$txt = 'hello';
+echo $txt . 'world'; // 使用 . （点）拼接
+```
+
+### strlen() 获取字符长度
+
+```php
+echo strlen('hello'); // 对于英文输出5个字符,但是中文的一个字被识别为两个字符长度
+echo mb_strlen('我叫麻花疼','utf-8'); // 5个字符
+```
+
+### strpos() 查找字符
+
+```php
+echo strpos('hello world','hello');
+// 找到则返回第一子匹配的字符位，否则返回false
+```
+
+## 运算符
+
+### xor 异或
+
+```php
+x xor y;
+// x 和 y 有且仅有一个为 true，则返回 true
+```
+
+### 三目运算
+
+```php
+true ? 1 : 2;
+$put = true?: 2; // 为true 则直接输出 true，PHP 5.3+ 版本写法
+true ?? 2; // PHP7+ 版本
+```
+
+### 组合比较符
+
+```php
+$put = 1 <=> 2;
+/*
+如果 $a > $b, 则 $c 的值为 1。
+如果 $a == $b, 则 $c 的值为 0。
+如果 $a < $b, 则 $c 的值为 -1
+*/
+```
+
+## 数组
+
+```php
+$arr = array(1,2,3);
+$arr = array(
+'key' => 'value',
+);
+
+// 5.4 起可以使用 []
+$arr = [1,3,4]
+```
+
+### 遍历
+
+```php
+$arl = count($arr); // 获取数组的长度
+
+for($i = 0;$i < $arl; $i ++){
+    pass;
+}
+
+for($arl as $k => $v){
+    pass;
+}
+// foreach 循环用于遍历数组。
+foreach($arr as $v){
+    pass;
+}
+```
+
+### 排序
+
+- sort() - 对数组进行升序排列
+- rsort() - 对数组进行降序排列
+- asort() - 根据关联数组的值，对数组进行升序排列
+- ksort() - 根据关联数组的键，对数组进行升序排列
+- arsort() - 根据关联数组的值，对数组进行降序排列
+- krsort() - 根据关联数组的键，对数组进行降序排列
+
+## 超全局变量
+
+- $GLOBALS
+- $_SERVER
+- $_REQUEST
+- $_POST
+- $_GET
+- $_FILES
+- $_ENV
+- $_COOKIE
+- $_SESSION
+
+### $_SERVER
+
+| 元素/代码                       | 描述                                                         |
+| ------------------------------- | ------------------------------------------------------------ |
+| $_SERVER['PHP_SELF']            | 当前执行脚本的文件名，与 document root 有关。例如，在地址为 http://example.com/test.php/foo.bar 的脚本中使用 $_SERVER['PHP_SELF'] 将得到 /test.php/foo.bar。__FILE__ 常量包含当前(例如包含)文件的完整路径和文件名。 从 PHP 4.3.0 版本开始，如果 PHP 以命令行模式运行，这个变量将包含脚本名。之前的版本该变量不可用。 |
+| $_SERVER['GATEWAY_INTERFACE']   | 服务器使用的 CGI 规范的版本；例如，"CGI/1.1"。               |
+| $_SERVER['SERVER_ADDR']         | 当前运行脚本所在的服务器的 IP 地址。                         |
+| $_SERVER['SERVER_NAME']         | 当前运行脚本所在的服务器的主机名。如果脚本运行于虚拟主机中，该名称是由那个虚拟主机所设置的值决定。(如: www.runoob.com) |
+| $_SERVER['SERVER_SOFTWARE']     | 服务器标识字符串，在响应请求时的头信息中给出。 (如：Apache/2.2.24) |
+| $_SERVER['SERVER_PROTOCOL']     | 请求页面时通信协议的名称和版本。例如，"HTTP/1.0"。           |
+| $_SERVER['REQUEST_METHOD']      | 访问页面使用的请求方法；例如，"GET", "HEAD"，"POST"，"PUT"。 |
+| $_SERVER['REQUEST_TIME']        | 请求开始时的时间戳。从 PHP 5.1.0 起可用。 (如：1377687496)   |
+| $_SERVER['QUERY_STRING']        | query string（查询字符串），如果有的话，通过它进行页面访问。 |
+| $_SERVER['HTTP_ACCEPT']         | 当前请求头中 Accept: 项的内容，如果存在的话。                |
+| $_SERVER['HTTP_ACCEPT_CHARSET'] | 当前请求头中 Accept-Charset: 项的内容，如果存在的话。例如："iso-8859-1,*,utf-8"。 |
+| $_SERVER['HTTP_HOST']           | 当前请求头中 Host: 项的内容，如果存在的话。                  |
+| $_SERVER['HTTP_REFERER']        | 引导用户代理到当前页的前一页的地址（如果存在）。由 user agent 设置决定。并不是所有的用户代理都会设置该项，有的还提供了修改 HTTP_REFERER 的功能。简言之，该值并不可信。) |
+| $_SERVER['HTTPS']               | 如果脚本是通过 HTTPS 协议被访问，则被设为一个非空的值。      |
+| $_SERVER['REMOTE_ADDR']         | 浏览当前页面的用户的 IP 地址。                               |
+| $_SERVER['REMOTE_HOST']         | 浏览当前页面的用户的主机名。DNS 反向解析不依赖于用户的 REMOTE_ADDR。 |
+| $_SERVER['REMOTE_PORT']         | 用户机器上连接到 Web 服务器所使用的端口号。                  |
+| $_SERVER['SCRIPT_FILENAME']     | 当前执行脚本的绝对路径。                                     |
+| $_SERVER['SERVER_ADMIN']        | 该值指明了 Apache 服务器配置文件中的 SERVER_ADMIN 参数。如果脚本运行在一个虚拟主机上，则该值是那个虚拟主机的值。(如：someone@runoob.com) |
+| $_SERVER['SERVER_PORT']         | Web 服务器使用的端口。默认值为 "80"。如果使用 SSL 安全连接，则这个值为用户设置的 HTTP 端口。 |
+| $_SERVER['SERVER_SIGNATURE']    | 包含了服务器版本和虚拟主机名的字符串。                       |
+| $_SERVER['PATH_TRANSLATED']     | 当前脚本所在文件系统（非文档根目录）的基本路径。这是在服务器进行虚拟到真实路径的映像后的结果。 |
+| $_SERVER['SCRIPT_NAME']         | 包含当前脚本的路径。这在页面需要指向自己时非常有用。__FILE__ 常量包含当前脚本(例如包含文件)的完整路径和文件名。 |
+| $_SERVER['SCRIPT_URI']          | URI 用来指定要访问的页面。例如 "/index.html"。               |
+
+## 魔术常量
+
+- \__LINE__ 代码所在行
+- \__FILE__  文件的完整路径和文件名 
+- \__DIR__  文件所在的目录 
+- \__FUNCTION__  函数名称 
+- \__CLASS__ 类的名称 
+- \__TRAIT__
+- \__METHOD__ 类的方法名（PHP 5.0.0 新加） 
+- \__NAMESPACE___ 当前命名空间的名称（区分大小写）。此常量是在编译时定义的（PHP 5.3.0 新增）。 
+
+## 命名空间
+
+```php
+// 一个文件中命名空间需要声明在所有其他代码之前
+//在声明命名空间之前唯一合法的代码是用于定义源文件编码方式的 declare 语句。所有非 PHP 代码包括空白符都不能出现在命名空间的声明之前。
+declare(encoding='utf-8');
+
+namespace at_one;
+
+namespace project{
+    // 推荐使用这种方式声明
+}
+
+namespace{
+    // 这是全局的，全局的非命名空间中的代码与命名空间中的代码组合在一起
+}
+```
+
+### 子命名空间
+
+```php
+namespace MyProject\Sub\Level;  //声明分层次的单个命名空间
+```
+
+### 命名空间别名
+
+```php
+namespace foo;
+use my\full\classname as another;
+
+use \ArrayObject;// 导入一个全局类
+
+use 
+    My\Full\Classname as Another, 
+	My\Full\NSname; // 一次导入多个
+```
+
+```php
+可以把非限定名称类比为文件名（例如 comment.php）、.限定名称类比为相对路径名（例如 ./article/comment.php）、完全限定名称类比为绝对路径名（例如 /blog/article/comment.php），这样可能会更容易理解。
+
+再添一例：
+
+<?php 
+//创建空间Blog
+namespace Blog;
+class Comment { }
+//非限定名称，表示当前Blog空间
+//这个调用将被解析成 Blog\Comment();
+$blog_comment = new Comment();
+//限定名称，表示相对于Blog空间
+//这个调用将被解析成 Blog\Article\Comment();
+$article_comment = new Article\Comment(); //类前面没有反斜杆\
+//完全限定名称，表示绝对于Blog空间
+//这个调用将被解析成 Blog\Comment();
+$article_comment = new \Blog\Comment(); //类前面有反斜杆\
+//完全限定名称，表示绝对于Blog空间
+//这个调用将被解析成 Blog\Article\Comment();
+$article_comment = new \Blog\Article\Comment(); //类前面有反斜杆\
+
+//创建Blog的子空间Article
+namespace Blog\Article;
+class Comment { }
+?>
+```
+
+
 
 ## PHP扩展
 
@@ -356,6 +611,26 @@ require_once 'conf';
 include 'conf';
 
 include_once // 同上
+```
+
+## 文件上传
+
+在`php.ini`内修改单个文件大小限制
+
+![UTOOLS1563266089496.png](http://yanxuan.nosdn.127.net/40deaec23d2d9eb8d491087e9f29f467.png)
+
+还有`post`提交上限大小
+
+![UTOOLS1563266192512.png](http://yanxuan.nosdn.127.net/6371470b4f6dcf2d805f09ac6b0d2df2.png)
+
+```php
+ <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data" accept="audio/mp3,audio/wma">
+        <?php
+        echo isset($error) ? $error : ''
+        ?>
+        <input type="file" name="file_upload">
+        <input type="submit" value="提交">
+    </form>
 ```
 
 
