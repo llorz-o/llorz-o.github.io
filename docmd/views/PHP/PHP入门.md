@@ -345,9 +345,18 @@ Test(); // 1
 ```php
 define('NAME','张'[,bool $case_insensitive ]);
 // $case_insensitive 默认为false，即区分大小写
+
+// php5.3.0以后，可以使用const关键字在类定义的外部定义常量
+const NAME = 'names';
 ```
 
 ## String
+
+### PHP_EOL
+
+该常量为换行符；
+
+`echo PHP_EOL;`
 
 ### 数值拼接
 
@@ -554,6 +563,207 @@ class Comment { }
 ?>
 ```
 
+## 面向对象
+
+```php
+class Site{
+    /**
+     * 使用var 和 public 定义的都属于公开的成员边量（可任意访问）
+     * 使用 private 定义私有的成员变量，只能被定义的所在类访问
+     * 使用 protected 定义保护成员，受保护成员可被自身及其子类，父类访问
+     * 后两种亦不能为实例访问，即只可在类的内部执行
+     */
+    var $url,
+        $title,
+        $name;
+    private $gender;
+    protected $money;
+
+    //成员函数
+    function setUrl($par){
+        $this->url = $par;
+    }
+    function getUrl(){
+        return $this->url;
+    }
+    // 构造函数
+    function __construct($name)
+    {
+        $this->name = $name;
+    }
+    /* 
+    析构函数
+    当对象结束其生命周期时（例如对象所在的函数已调用完毕），系统自动执行析构函数。
+     */
+    function __destruct(){
+        //
+    }
+}
+
+// PHP 不支持多继承
+class Address extends Site{
+    /**
+     * override (重写)， 一般是子类对父类同种方法的增强或修改（据业务不同）
+     *  重写应当与父类具有更少的错误，因为它是对父类相同方法的扩展
+     *  重写的特点是一般只能重写一次，同名的方法与参数，返回值，但是逻辑不同
+     * 
+     * overload (重载)， 在一个类中有多个名称相同，参数值不同的方法被称为重载。
+     *  这种方式用于提高方法的复用性，减少不必要的api，收束方法的功能。
+     * 重载的特点是方法名相同，参数不同，返回值也可不同，逻辑也有差异，但是依据参数来确定
+     */
+
+    function getUrl(){
+        return $this->url;
+    }
+}
+```
+
+### 接口
+
+```php
+<?php
+
+header('content-type:text/html;charset=utf-8');
+
+/**
+ * 接口中定义的所有方法都必须是公有
+ * 接口规定实现该接口的类需要实现所有该接口规定的方法
+ */
+interface iTemplate
+{
+    function setVariable($name, $val);
+}
+interface iTemplate2
+{
+    function setNames($name);
+}
+
+class Site
+{
+
+    var $url,
+        $title,
+        $name;
+
+    function setUrl($par)
+    {
+        $this->url = $par;
+    }
+    function getUrl()
+    {
+        return $this->url;
+    }
+}
+
+// implements 操作符 逗号分隔多个接口的名称
+
+class Address extends Site implements iTemplate, iTemplate2
+{
+    function getUrl()
+    {
+        return $this->url;
+    }
+    function setVariable($name, $val)
+    { }
+    function setNames($name)
+    { }
+}
+
+```
+
+### 抽象类
+
+```php
+<?php
+
+header('content-type:text/html;charset=utf-8');
+
+/**
+ *  任何一个类，如果它里面至少有一个方法是被声明为抽象的，那么这个类就必须被声明为抽象的。
+ *  定义为抽象的类不能被实例化,只可被继承。
+ *  继承一个抽象类的时候，子类必须定义父类中的所有抽象方法；
+ */
+abstract class AbstractParent{
+    abstract protected function getValue($key);
+}
+
+class Children extends AbstractParent{
+    /**
+     * 这些方法的访问控制必须和父类中一样（或者更为宽松）。例如某个抽象方法被声明为受保护的，
+     * 那么子类中实现的方法就应该声明为受保护的或者公有的，而不能定义为私有的。
+     */
+    function getValue($key,$v2='default'){ // 子类可以定义父类中不存在的可选参数,注意只是可选参数，
+        return "{$key}-Children-{$v2}";
+    }
+}
+
+```
+
+### Static
+
+```php
+class ParentClass{
+    /**
+     * 通过static关键字修饰的静态属性或方法是与类直接关联的，所以$this在静态方法中不可访问。
+     * 但是self关键字指向该类，可进行调用
+     */
+    static $name = 'zo';
+
+    function showName(){
+        echo self::$name;
+    }
+}
+
+$foo = new ParentClass;
+echo ParentClass::$name; 
+echo $foo->showName();
+```
+
+### Final
+
+```php
+// PHP 5 新增了一个 final 关键字。如果父类中的方法被声明为 final，则子类无法覆盖该方法。如果一个类被声明为 final，则不能被继承。
+class ParentClass{
+
+    final function showName(){
+        echo 'fianl';
+    }
+
+}
+
+class ChildrenClass extends ParentClass{
+
+    function showName(){
+        echo 'ChildrenClass'; // error :: Cannot override final method ParentClass::showName()
+    }
+
+} 
+```
+
+### 调用父类的构造方法
+
+```php
+class ParentClass{
+    var $name;
+    function __construct($name){
+        $this->name = $name;
+    }
+}
+
+class ChildrenClass extends ParentClass{
+    var $val;
+    /**
+     *  如果子类没有写构造则默认调用父类的构造，如写了构造需要parent调用
+     */
+    function __construct($name,$val)
+    {
+        parent::__construct($name);
+        $this->val = $val;
+    }
+} 
+
+```
+
 
 
 ## PHP扩展
@@ -598,7 +808,7 @@ PHP交互式命令行
 
 **注意这是高版本下的`REPL`打开方式**
 
-## 文件导入
+## 文件导入 include & require
 
 ```php
 // require 允许多次导入,但会重复执行被载入文件
@@ -633,5 +843,172 @@ include_once // 同上
     </form>
 ```
 
+## 扩展内容
 
+### date 日期
+
+```php
+// 要获得准确的时间，需要在文件头设置时区。
+date_default_timezone_set("PRC"); 
+// 第二个值为可选时间戳
+echo date('Y-m-d'[,timestamp);
+```
+
+| `format`字符         | 说明                                                         | 返回值例子                                                   |
+| -------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| *日*                 | ---                                                          | ---                                                          |
+| *d*                  | 月份中的第几天，有前导零的 2 位数字                          | *01* 到 *31*                                                 |
+| *D*                  | 星期中的第几天，文本表示，3 个字母                           | *Mon* 到 *Sun*                                               |
+| *j*                  | 月份中的第几天，没有前导零                                   | *1* 到 *31*                                                  |
+| *l*（"L"的小写字母） | 星期几，完整的文本格式                                       | *Sunday* 到 *Saturday*                                       |
+| *N*                  | ISO-8601 格式数字表示的星期中的第几天（PHP 5.1.0 新加）      | *1*（表示星期一）到 *7*（表示星期天）                        |
+| *S*                  | 每月天数后面的英文后缀，2 个字符                             | *st*，*nd*，*rd* 或者 *th*。可以和 *j* 一起用                |
+| *w*                  | 星期中的第几天，数字表示                                     | *0*（表示星期天）到 *6*（表示星期六）                        |
+| *z*                  | 年份中的第几天                                               | *0* 到 *365*                                                 |
+| *星期*               | ---                                                          | ---                                                          |
+| *W*                  | ISO-8601 格式年份中的第几周，每周从星期一开始（PHP 4.1.0 新加的） | 例如：*42*（当年的第 42 周）                                 |
+| *月*                 | ---                                                          | ---                                                          |
+| *F*                  | 月份，完整的文本格式，例如 January 或者 March                | *January* 到 *December*                                      |
+| *m*                  | 数字表示的月份，有前导零                                     | *01* 到 *12*                                                 |
+| *M*                  | 三个字母缩写表示的月份                                       | *Jan* 到 *Dec*                                               |
+| *n*                  | 数字表示的月份，没有前导零                                   | *1* 到 *12*                                                  |
+| *t*                  | 给定月份所应有的天数                                         | *28* 到 *31*                                                 |
+| *年*                 | ---                                                          | ---                                                          |
+| *L*                  | 是否为闰年                                                   | 如果是闰年为 *1*，否则为 *0*                                 |
+| *o*                  | ISO-8601 格式年份数字。这和 *Y* 的值相同，只除了如果 ISO 的星期数（*W*）属于前一年或下一年，则用那一年。（PHP 5.1.0 新加） | Examples: *1999* or *2003*                                   |
+| *Y*                  | 4 位数字完整表示的年份                                       | 例如：*1999* 或 *2003*                                       |
+| *y*                  | 2 位数字表示的年份                                           | 例如：*99* 或 *03*                                           |
+| *时间*               | ---                                                          | ---                                                          |
+| *a*                  | 小写的上午和下午值                                           | *am* 或 *pm*                                                 |
+| *A*                  | 大写的上午和下午值                                           | *AM* 或 *PM*                                                 |
+| *B*                  | Swatch Internet 标准时                                       | *000* 到 *999*                                               |
+| *g*                  | 小时，12 小时格式，没有前导零                                | *1* 到 *12*                                                  |
+| *G*                  | 小时，24 小时格式，没有前导零                                | *0* 到 *23*                                                  |
+| *h*                  | 小时，12 小时格式，有前导零                                  | *01* 到 *12*                                                 |
+| *H*                  | 小时，24 小时格式，有前导零                                  | *00* 到 *23*                                                 |
+| *i*                  | 有前导零的分钟数                                             | *00* 到 *59*>                                                |
+| *s*                  | 秒数，有前导零                                               | *00* 到 *59*>                                                |
+| *u*                  | 毫秒 （PHP 5.2.2 新加）。需要注意的是 **date()** 函数总是返回 *000000* 因为它只接受 integer 参数， 而 DateTime::format() 才支持毫秒。 | 示例: *654321*                                               |
+| *时区*               | ---                                                          | ---                                                          |
+| *e*                  | 时区标识（PHP 5.1.0 新加）                                   | 例如：*UTC*，*GMT*，*Atlantic/Azores*                        |
+| *I*                  | 是否为夏令时                                                 | 如果是夏令时为 *1*，否则为 *0*                               |
+| *O*                  | 与格林威治时间相差的小时数                                   | 例如：*+0200*                                                |
+| *P*                  | 与格林威治时间（GMT）的差别，小时和分钟之间有冒号分隔（PHP 5.1.3 新加） | 例如：*+02:00*                                               |
+| *T*                  | 本机所在的时区                                               | 例如：*EST*，*MDT*（【译者注】在 Windows 下为完整文本格式，例如"Eastern Standard Time"，中文版会显示"中国标准时间"）。 |
+| *Z*                  | 时差偏移量的秒数。UTC 西边的时区偏移量总是负的，UTC 东边的时区偏移量总是正的。 | *-43200* 到 *43200*                                          |
+| *完整的日期／时间*   | ---                                                          | ---                                                          |
+| *c*                  | ISO 8601 格式的日期（PHP 5 新加）                            | 2004-02-12T15:19:21+00:00                                    |
+| *r*                  | RFC 822 格式的日期                                           | 例如：*Thu, 21 Dec 2000 16:01:07 +0200*                      |
+| *U*                  | 从 Unix 纪元（January 1 1970 00:00:00 GMT）开始至今的秒数    | 参见 time()                                                  |
+
+### 文件读写
+
+```php
+$txt = fopen(str:path[,str:mode])
+```
+
+| 模式 | 描述                                                         |
+| ---- | ------------------------------------------------------------ |
+| r    | 只读。在文件的开头开始。                                     |
+| r+   | 读/写。在文件的开头开始。                                    |
+| w    | 只写。打开并清空文件的内容；如果文件不存在，则创建新文件。   |
+| w+   | 读/写。打开并清空文件的内容；如果文件不存在，则创建新文件。  |
+| a    | 追加。打开并向文件末尾进行写操作，如果文件不存在，则创建新文件。 |
+| a+   | 读/追加。通过向文件末尾写内容，来保持文件内容。              |
+| x    | 只写。创建新文件。如果文件已存在，则返回 FALSE 和一个错误。  |
+| x+   | 读/写。创建新文件。如果文件已存在，则返回 FALSE 和一个错误。 |
+
+**注释：**如果 fopen() 函数无法打开指定文件，则返回 0 (false)。 
+
+```php
+$file = fopen('readme.md','r');
+
+/**
+ * 在 w 、a 和 x 模式下，无法读取打开的文件！
+ */
+if(feof($file)){
+    echo '文件末尾';
+}
+
+while(!feof($file)){
+    echo fgets($file).'</br>'; // 逐行读文件
+    echo fgetc($file); // 逐字符读文件
+}
+
+fclose($file); // 关闭文件
+```
+
+### Cookie
+
+```php
+/**
+ * 在发送 cookie 时，cookie 的值会自动进行 URL 编码，在取回时进行自动解码。
+ * （为防止 URL 编码，请使用 setrawcookie() 取而代之。）
+ * cookie 一般设置在文件头，
+ * 下级路径的cookie不能被上级路径访问
+ */
+var_dump($_COOKIE);
+
+if (isset($_COOKIE['user'])) { // cookie 存在否
+    
+	echo "欢迎" . $_COOKIE['user'];
+    
+} else {
+	echo '普通人';
+    // 写入 cookie 键 值 过期时间 生效路径
+	setcookie('user', 'zhoulichao', time() + 3600, '/');
+}
+
+```
+
+### session
+
+Session 的工作机制是：为每个访客创建一个唯一的 id (UID)，并基于这个 UID 来存储变量。UID 存储在 cookie 中，或者通过 URL 进行传导。 
+
+```php
+
+session_start();
+
+$_SESSION['views'] = 'session_view-1';
+
+// 删除某些 session 数据，可以使用 unset() 或 session_destroy() 函数。
+```
+
+### 异常捕获
+
+```php
+try{
+    throw new Exception('err')
+}catch(Exception $e){
+    echo '错误{$e}'
+}
+
+// set_exception_handler() 函数可设置处理所有未捕获异常的用户定义函数。
+function myException($exception)
+{
+    echo "<b>Exception:</b> " , $exception->getMessage();
+}
+ 
+set_exception_handler('myException');
+ 
+throw new Exception('Uncaught Exception occurred');
+```
+
+### 过滤器
+
+- filter_var() - 通过一个指定的过滤器来过滤单一的变量
+- filter_var_array() - 通过相同的或不同的过滤器来过滤多个变量
+- filter_input - 获取一个输入变量，并对它进行过滤
+- filter_input_array - 获取多个输入变量，并通过相同的或不同的过滤器对它们进行过滤
+
+```php
+if(!filter_var($int, FILTER_VALIDATE_INT))
+{
+    echo("不是一个合法的整数");
+}
+else
+{
+    echo("是个合法的整数");
+}
+```
 
