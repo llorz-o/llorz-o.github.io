@@ -1,11 +1,18 @@
 <template>
   <div class="custom-container">
-      
+      <bg-canvas>
+
+      </bg-canvas>
   </div>
 </template>
 
 <script>
+import BgCanvas from './BgCanvas';
+
 export default {
+  components:{
+    'bg-canvas':BgCanvas,
+  },
   data() {
     return {};
   },

@@ -26,3 +26,8 @@ heroImageStyle: {
   display:none;
 }
 </style>
+
+关于前端的埋点，性能监控，异常捕获与上报，用户数据分析与可视化。
+
+关于后端的学习,PHP，Python，GraphQL未来的路还很长。。。
+
