@@ -1,6 +1,6 @@
 ---
 home: true
-# heroImage: /reco/hero.png
+heroImage: /bg.gif
 heroImageStyle: {
   maxWidth: '600px',
   width: '100%',

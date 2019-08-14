@@ -1,8 +1,8 @@
 module.exports = {
-  title: "Operate Sao",
-  description: '你想来点骚操作吗？',
+  title: "LLORZ-O",
+  description: 'operate sao hu ?',
   dest: 'docs',
-  base: '/reco/',
+  // base: '',
   head: [
     ['link', {
       rel: 'icon',
@@ -15,6 +15,7 @@ module.exports = {
   ],
   theme: 'reco',
   themeConfig: {
+    type:'blog',
     nav: [{
         text: '主页',
         link: '/',
@@ -71,7 +72,7 @@ module.exports = {
       placeholder: '我膝盖中了一箭 !Orz', // 
 
     },
-    logo: '/reco/head.jpeg',
+    logo: '/head.jpeg',
     // 博客设置
     type: 'blog',
     // 关闭华为文案
