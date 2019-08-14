@@ -1,7 +1,6 @@
 ---
 home: true
 bgImage: /bg.gif
-# faceImage:
 bgImageStyle: {
   maxWidth: '600px',
   width: '100%',
