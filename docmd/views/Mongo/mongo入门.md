@@ -6,6 +6,7 @@ categories:
 tags:
  - no sql
  - mongodb
+ - 全部
 ---
 
 > 此篇为入门学习记录篇,基础不好就来看看。
