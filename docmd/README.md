@@ -1,7 +1,8 @@
 ---
 home: true
-heroImage: /bg.gif
-heroImageStyle: {
+bgImage: /bg.gif
+# faceImage:
+bgImageStyle: {
   maxWidth: '600px',
   width: '100%',
   display: block,
