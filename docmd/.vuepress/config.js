@@ -1,7 +1,7 @@
 module.exports = {
   title: "LLORZ-O",
   description: 'operate sao hu ?',
-  dest: 'docs',
+  dest: '../temp',
   // base: '',
   head: [
     ['link', {
