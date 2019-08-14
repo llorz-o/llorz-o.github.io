@@ -255,6 +255,8 @@ constructor(props){
 
 ### 组件的装饰者HOC
 
+
+
 ### Fragments
 
 `Fragment`通常用于在render中返回多个元素且不需要拥有一个顶级`DOM`元素或组件包裹的情况。
@@ -324,6 +326,59 @@ class Column2 extends Component{
 ```
 
 **注意：**`render props` 与 `React.PureComponent`在一起使用时需要注意，`render props` 将导致 `props` 的对比始终是`false`，那么 `PureComponent` 将失去它的作用。
+
+### React.Component
+
+**`forceUpdate()`**
+
+```react
+component.forceUpdate(callback)
+// 该方法强制组件重渲染，调用 render()方法，但是将跳过 sholdComponentUpdate() 方法
+```
+
+**`getSnapshotBeforeUpdate（）`**
+
+```react
+getSnapshotBeforeUpdate(prevProps, prevState)
+```
+
+`getSnapshotBeforeUpdate()` 在最近一次渲染输出（提交到 DOM 节点）之前调用。它使得组件能在发生更改之前从 DOM 中捕获一些信息（例如，滚动位置）。此生命周期的任何返回值将作为参数传递给 `componentDidUpdate()`的第三个参数`snapshot`
+
+## Hook
+
+`Hook`是在组件生命期间带入的函数，`Hook`不能再class组件中使用。所以使用`Hook`只能是函数组件。
+
+### useState
+
+```react
+function List(){
+    const [item,setItem] = useState('zhou');// 传入一个初始的state 值为 'zhou',属性名为 ‘item’，
+    // 以及一个可以设置这个值的 函数 ‘setItem’
+    
+    return (
+    <div onClick={ () => setItem('liu')}></div>
+    )
+}
+```
+
+### useEffect
+
+```react
+useEffect(() => {
+    // 任务
+    return () => {
+        // useEffect 接受一个函数返回值，在组件卸载时完成调用
+    }
+},[count]) // 第二个参数固定为数组形式， Effect会依据count的状态决定是否跳过 Effect的执行，因为count状态无变化，执行Effect将毫无意义，这类似于shouldComponentUpdate中的 state 对比或PureComponent 的自动对比。这将提升 useEffect 的性能。
+```
+
+>   **注意**
+>
+>   如果你要使用此优化方式，请确保数组中包含了**所有外部作用域中会随时间变化并且在 effect 中使用的变量**，否则你的代码会引用到先前渲染中的旧变量。参阅文档，了解更多关于[如何处理函数](https://zh-hans.reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies)以及[数组频繁变化时的措施](https://zh-hans.reactjs.org/docs/hooks-faq.html#what-can-i-do-if-my-effect-dependencies-change-too-often)内容。
+>
+>   如果想执行只运行一次的 effect（仅在组件挂载和卸载时执行），可以传递一个空数组（`[]`）作为第二个参数。这就告诉 React 你的 effect 不依赖于 props 或 state 中的任何值，所以它永远都不需要重复执行。这并不属于特殊情况 —— 它依然遵循依赖数组的工作方式。
+>
+>   如果你传入了一个空数组（`[]`），effect 内部的 props 和 state 就会一直拥有其初始值。尽管传入 `[]` 作为第二个参数更接近大家更熟悉的 `componentDidMount` 和 `componentWillUnmount` 思维模式，但我们有[更好的](https://zh-hans.reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies)[方式](https://zh-hans.reactjs.org/docs/hooks-faq.html#what-can-i-do-if-my-effect-dependencies-change-too-often)来避免过于频繁的重复调用 effect。除此之外，请记得 React 会等待浏览器完成画面渲染之后才会延迟调用 `useEffect`，因此会使得额外操作很方便。
 
 ## React-Router
 
