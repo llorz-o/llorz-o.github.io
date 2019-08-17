@@ -31,7 +31,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 .canvas-container{
     width: 100vw;
     height: 100vh;
