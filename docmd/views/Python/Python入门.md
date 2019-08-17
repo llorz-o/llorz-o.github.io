@@ -1,5 +1,5 @@
 ---
-title: python入门篇
+title: python
 date: 2019-07-08
 tags:
  - Python

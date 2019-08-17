@@ -1,5 +1,5 @@
 ---
-title: TypeScript入门
+title: TypeScript
 date: 2019-08-16
 categories:
  - 前端
@@ -15,7 +15,7 @@ JavaScript的超集。
 
 同样比较好的还有[Flow](https://flow.org/en/) :fire:
 
-<!--more-->
+<!-- more -->
 
 ## 原始数据类型
 

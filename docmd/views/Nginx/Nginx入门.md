@@ -1,5 +1,5 @@
 ---
-title: Nginx入门
+title: Nginx
 date: 2019-8-15
 categories:
  - 后端

@@ -1,5 +1,5 @@
 ---
-title: React入门
+title: React
 date: 2019-07-29
 tags:
  - React
@@ -26,7 +26,7 @@ categories:
 
     > 因为`this.state`和`this.props`可能会异步更新,所以你需要以如下方式完成
 
-    ```react
+    ```jsx
     /**
     * @param state { oldState } 上一个state的状态
     * @param props { application Props } 当前最新被应用的props
@@ -51,7 +51,7 @@ categories:
 
 1. `React`中任何东西都可作为`props`进行传递,也包括组件,类似于其他组件中的插槽`slot`
 
-	```react
+	```jsx
 
 	function List(props){
 		return (<div>
@@ -79,7 +79,7 @@ categories:
 
 > `Context`设计的目的是为了实现那些于组件树而言是'全局'的数据,从根本上避免了那些每个组件都需要的数据在每个`props`上再传递一遍的繁琐.
 
-```react
+```jsx
 
 import React, { Component } from 'react';
 
@@ -129,7 +129,7 @@ Main.contextType = ThemeContext
 
 #### Context.Consumer
 
-```react
+```jsx
 const ThemeContext = React.createContext('light'); // 默认值 'light'
 
 function Main(props){
@@ -166,7 +166,7 @@ export default App
 
 **注意：**为避免每一次`Provider`重渲染时，会重渲染所有下面的`consumers`组件,应以以下方式书写`value`
 
-```react
+```jsx
 // bad
 class App extends Component {
 	render(){
@@ -203,7 +203,7 @@ class App extends React.Component {
 
 >   将需要顶层状态的底层组件抽取出至顶层，然后一层一层的传递下去
 
-```react
+```jsx
 function Page(props) {
   const user = props.user;
   const userLink = (
@@ -230,7 +230,7 @@ function Page(props) {
 
 `ref`可被组件使用指定`ref`为JSX属性而向下传递。
 
-```react
+```jsx
 const ref = React.createRef();
 <FancyButton ref={ref}>Click me!</FancyButton>;
 
@@ -245,7 +245,7 @@ const FancyButton = React.forwardRef((props, ref) => (
 
 `ref`可以指定为回调函数
 
-```react
+```jsx
 constructor(props){
     this.refCallBack = ele => {
         
@@ -262,7 +262,7 @@ constructor(props){
 
 `Fragment`通常用于在render中返回多个元素且不需要拥有一个顶级`DOM`元素或组件包裹的情况。
 
-```react
+```jsx
 class App extends Component {
 	render(){
 		return (
@@ -319,7 +319,7 @@ class Column2 extends Component{
 
 `props render`是指一种开发模式。该模式指你可以将组件在props中传输。从而完成切面关注点开发。
 
-```react
+```jsx
 <Parent render={ children => (
     <Children>12</Children>
     ) }></Parent>
@@ -332,14 +332,14 @@ class Column2 extends Component{
 
 **`forceUpdate()`**
 
-```react
+```jsx
 component.forceUpdate(callback)
 // 该方法强制组件重渲染，调用 render()方法，但是将跳过 sholdComponentUpdate() 方法
 ```
 
 **`getSnapshotBeforeUpdate（）`**
 
-```react
+```jsx
 getSnapshotBeforeUpdate(prevProps, prevState)
 ```
 
@@ -351,7 +351,7 @@ getSnapshotBeforeUpdate(prevProps, prevState)
 
 ### useState
 
-```react
+```jsx
 function List(){
     const [item,setItem] = useState('zhou');// 传入一个初始的state 值为 'zhou',属性名为 ‘item’，
     // 以及一个可以设置这个值的 函数 ‘setItem’
@@ -364,7 +364,7 @@ function List(){
 
 ### useEffect
 
-```react
+```jsx
 useEffect(() => {
     // 任务
     return () => {
@@ -389,7 +389,7 @@ useEffect(() => {
 
 ### @observable 可观察数据装饰器
 
-```react
+```jsx
 
 import {observable, computed} from 'mobx';
 
@@ -434,7 +434,7 @@ npm install --save-dev babel-preset-mobx
 
 **src/index.js**
 
-```react
+```jsx
 import store from '@/store';
 import {Provider} from 'mobx-react';
 
@@ -449,7 +449,7 @@ ReactDOM.render(
 
 **src/views/home/index.jsx**
 
-```react
+```jsx
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
@@ -476,7 +476,7 @@ class Home extends Component {
 
 ### 创建模型实例
 
-```react
+```jsx
 import { types, onSnapshot ,getSnapshot} from "mobx-state-tree"
 
 const Todo = types.model({
@@ -495,7 +495,7 @@ console.log(getSnapshot(eat)); // =>
 
 ### types
 
-```react
+```jsx
 const Todo = types.model({
     name:'', 
     done:false, 
@@ -519,7 +519,7 @@ const store = RootStore.create()
 
 ### 修改数据 actions
 
-```react
+```jsx
 const Todo = types
   .model({
     name: "",
@@ -566,7 +566,7 @@ store.todos.get(1).toggle().show()
 
 ### getSnapshot   onSnapshot
 
-```react
+```jsx
 console.dir(getSnapshot(store)); // =>
 /*
 {
@@ -585,7 +585,7 @@ console.dir(getSnapshot(store)); // =>
 
 **onSnapshot**
 
-```react
+```jsx
 onSnapshot(store,snapshot => {
     console.log(snapshot);
 })
@@ -595,7 +595,7 @@ onSnapshot(store,snapshot => {
 
 允许从快照恢复模型
 
-```react
+```jsx
 const store_te = RootStore.create(getSnapshot(store))
 // 第一种方式将创建一个新的引用
 applySnapshot(store,getSnapshot(store))
@@ -608,7 +608,7 @@ applySnapshot(store,getSnapshot(store))
 
 `MST` 完全兼容 `MobX`,所以你可以使用`MobX`中的任何 api 
 
-```react
+```jsx
 import { values,keys } from 'mobx';
 
 store.addTodo(1,'liu')
@@ -619,7 +619,7 @@ console.log( keys(store.todos) ) => [1,2]
 
 ### observer 声明响应模组
 
-```react
+```jsx
 const TodoView = observer(props => (
 	<div>
         props.todo.name
@@ -629,7 +629,7 @@ const TodoView = observer(props => (
 
 ### 计算属性 view
 
-```react
+```jsx
 const RootStore = types
     .model({
         users: types.map(User),
@@ -650,7 +650,7 @@ const RootStore = types
 
 ### 模型视图
 
-```react
+```jsx
 const RootStore = types
     .model({
         users: types.map(User),
@@ -671,7 +671,7 @@ const RootStore = types
 
 ### Actions
 
-```react
+```jsx
 const todoStore = types.model('todoStore',{
       name:''
     })
@@ -718,7 +718,7 @@ let middleware = addMiddleware(store,(actions_call,next,abort) => {
 
 ### 引用和标识符
 
-```react
+```jsx
 const Todo = types.model('Todo',{
   id:types.identifier,
   title:types.string,
@@ -754,7 +754,7 @@ console.log(store.selected_todo.title);// 肺癌发
 
 #### 标识符颗粒化控制
 
-```react
+```jsx
 const Todo = types.model('Todo',{
   id:types.refinement(types.identifier,identifier => Number(identifier) > 50),
     // 限制id必须大于50否则报错
@@ -764,7 +764,7 @@ const Todo = types.model('Todo',{
 
 #### 自定义引用 reference
 
-```react
+```jsx
 
 const titleReference = types.maybeNull(types.reference(Todo,{
   get(identifier/* String */,parent /* Store */){ // 给定标识符，找到用户

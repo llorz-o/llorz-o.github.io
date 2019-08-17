@@ -1,5 +1,5 @@
 ---
-title: Mongodb入门篇
+title: Mongodb
 date: 2019-6-28
 categories:
  - 数据库 
