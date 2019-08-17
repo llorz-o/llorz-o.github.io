@@ -1,8 +1,6 @@
 <template>
   <div class="custom-container">
-      <bg-canvas>
-
-      </bg-canvas>
+      <bg-canvas class="bg-temp"/>
   </div>
 </template>
 
@@ -33,6 +31,10 @@ body,
 .custom-container * {
   margin: 0;
   padding: 0;
+}
+.bg-temp{
+  position: relative;
+  z-index: -1;
 }
 </style>
 
