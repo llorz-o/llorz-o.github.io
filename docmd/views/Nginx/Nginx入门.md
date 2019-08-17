@@ -1,9 +1,9 @@
 ---
 title: Nginx入门
-date: 2019-08-15
+date: 2019-8-15
 categories:
  - 后端
-tag:
+tags:
  - 全部
  - 入门
  - Nginx

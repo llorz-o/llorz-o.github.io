@@ -2,8 +2,8 @@
 title: vuex
 date: 2019-6-27
 tags:
- - vuex
- - vue
+ - VueX
+ - Vue
  - 全部
 categories:
  - Chaos

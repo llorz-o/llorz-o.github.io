@@ -2,7 +2,7 @@
 title: python入门篇
 date: 2019-07-08
 tags:
- - python
+ - Python
  - 后端
  - 入门
  - 全部

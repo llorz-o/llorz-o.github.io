@@ -1,6 +1,5 @@
 <template>
     <div class="canvas-container">
-        12
         <canvas></canvas>
     </div>
 </template>

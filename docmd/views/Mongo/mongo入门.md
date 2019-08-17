@@ -4,8 +4,7 @@ date: 2019-6-28
 categories:
  - 数据库 
 tags:
- - no sql
- - mongodb
+ - MongoDB
  - 全部
 ---
 
