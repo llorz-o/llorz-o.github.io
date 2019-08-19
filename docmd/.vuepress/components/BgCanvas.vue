@@ -37,6 +37,9 @@ export default {
     height: 100vh;
     overflow: hidden;
 }
+#star{
+    position: relative;
+}
 #three{
     position: absolute;
     top: 0;
