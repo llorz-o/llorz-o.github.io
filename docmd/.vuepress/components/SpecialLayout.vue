@@ -24,9 +24,6 @@ export default {
 
 
 <style lang="css">
-html,
-body,
-#app,
 .custom-container {
   height: 100%;
   margin: 0;
