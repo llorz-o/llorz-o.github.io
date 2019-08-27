@@ -54,3 +54,7 @@ faceImage: '/head.png'
 分割线...
 
 ```
+
+## icon
+
+![vuepress-theme-reco.recoluan.com_views_1.x_configJs.html (3).png](https://user-gold-cdn.xitu.io/2019/8/23/16cbdc66e171a7e8?w=864&h=1151&f=png&s=79525)

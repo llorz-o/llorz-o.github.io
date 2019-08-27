@@ -24,3 +24,7 @@
 
 - [javascript.info](https://zh.javascript.info/) 关于javascript全面而且详细的教程:fire::top:
 
+## 资源
+
+1. [超赞合集](https://asmcn.icopy.site/) :zap:
+

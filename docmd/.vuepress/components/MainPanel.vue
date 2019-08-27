@@ -17,8 +17,8 @@ export default {
   margin-top: 100px;
   max-width: 800px;
   overflow-y: scroll;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  color: #a7a8a9;
+  font-family:  Ubuntu,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
 }
 
 ::-webkit-scrollbar {

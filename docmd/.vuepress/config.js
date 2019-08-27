@@ -54,8 +54,13 @@ module.exports = {
                     },
                     {
                         text: "关于我",
-                        link: "/about/about.html",
+                        link: "/unpack/about.html",
                         icon: "reco-account"
+                    },
+                    {
+                        text: "备忘录",
+                        link: "/unpack/memo.html",
+                        icon:'reco-document',
                     }
                     // { text: 'CSDN', link: 'https://blog.csdn.net/recoluan', icon: 'reco-csdn' },
                     // { text: '博客圆', link: 'https://www.cnblogs.com/luanhewei/', icon: 'reco-bokeyuan' },
