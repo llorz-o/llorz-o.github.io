@@ -512,13 +512,13 @@ let canvas,
     particles,
     hue;
 noiseZ = 0;
-let particleCount = 500; // de 2000 数量
-let particleSize = 0.37; // de 0.9 粒子大小
+let particleCount = 15; // de 2000 数量
+let particleSize = 0.6; // de 0.9 粒子大小
 fieldSize = 70;
 let fieldForce = 0.15;
 let noiseSpeed = 0.003;
 let sORp = true;
-let trailLength = 0.6; // de 0.15 拖影长度,越小越长
+let trailLength = 0.05; // de 0.15 拖影长度,越小越长
 let hueBase = 69; // de 300
 let hueRange = 28; // de 8
 let maxSpeed = 2.5; // de 2.5 最大速度
