@@ -127,7 +127,7 @@ DocumentRoot "D:\WWW"
 注意下面的 Directory 为允许磁盘访问，必须同样修改该目录。这是由于安全原则，apache在上方禁用所有的根目录访问，然后你必须指定你需要暴露的路径
 
 ```shell
-# 禁用所有的目录访问权
+# 禁用所有的目录访问权 -Indexes
 <Directory />
     AllowOverride none
     Require all denied
@@ -137,6 +137,8 @@ DocumentRoot "D:\WWW"
 # 开启该目录访问权限
 <Directory "D:\WWW">
 	 Options Indexes FollowSymLinks
+	 # 使用 + - 号也可以控制选项的开启
+	 # Options -Indexes -FollowSymLinks
 	 AllowOverride None
 	 Require all granted
 </Directory>
@@ -509,7 +511,7 @@ declare(encoding='utf-8');
 namespace at_one;
 
 namespace project{
-    // 推荐使用这种方式声明
+    // 推荐使用这种方式声明,这种方式适合单文件多命名空间.
 }
 
 namespace{
@@ -521,6 +523,18 @@ namespace{
 
 ```php
 namespace MyProject\Sub\Level;  //声明分层次的单个命名空间
+
+class Test{
+    
+}
+```
+
+### 完全限定类名
+
+```php
+use MyProject\Sub\Level\Test; // 这是一次完全限定类名导入
+// 意思为导入 MyProject\Sub\Level 下的 Test 类,那么这种导入就可以直接使用该类
+    
 ```
 
 ### 命名空间别名
@@ -529,11 +543,14 @@ namespace MyProject\Sub\Level;  //声明分层次的单个命名空间
 namespace foo;
 use my\full\classname as another;
 
-use \ArrayObject;// 导入一个全局类
+use \ArrayObject as AO;// 导入一个全局类, 全局类需要使用别名.否则会有警告
 
 use 
     My\Full\Classname as Another, 
 	My\Full\NSname; // 一次导入多个
+
+use func Namespace\functionName; //函数导入
+use constant Namespace\CONST_NAME;  // 常量导入
 ```
 
 ```php
@@ -573,6 +590,7 @@ class Site{
      * 使用 private 定义私有的成员变量，只能被定义的所在类访问
      * 使用 protected 定义保护成员，受保护成员可被自身及其子类，父类访问
      * 后两种亦不能为实例访问，即只可在类的内部执行
+     * 构造函数亦不能修改私有属性
      */
     var $url,
         $title,
@@ -765,7 +783,25 @@ class ChildrenClass extends ParentClass{
 
 ```
 
+## 闭包与匿名函数
 
+```php
+function closure () {
+	$count = 1;
+	$add = function () use (&$count){
+		echo $count;
+		$count++;
+	};
+	return $add;
+}
+// 闭包需要使用use声明获取当前上下文的变量。
+// 使用 & 获取当前上下文的变量引用，否则默认获取到副本
+$add = closure();
+
+$add();
+$add();
+$add();
+```
 
 ## PHP扩展
 
