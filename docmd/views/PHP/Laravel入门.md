@@ -1701,6 +1701,11 @@ $factory->define(User::class, function (Faker $faker) {
 ```
 
 `Faker`类库提供了伪造字段[方法](https://github.com/fzaninotto/Faker),
+`Faker`支持中文 `config/app.php`
+
+```php
+'faker_locale' => 'zh_CN',
+```
 
 ```php
 public function run()
@@ -2899,7 +2904,266 @@ public function scopeOfType(Builder $query, $type)
 $posts = Post::active()->ofType(Post::Article)->get();
 ```
 
+### 模型事件
 
+在 Eloquent 模型类上进行查询、插入、更新、删除操作时，会触发相应的模型事件（关于事件我们后面会单独讲），不管你有没有监听它们。这些事件包括：
+
+ - retrieved：获取到模型实例后触发
+ - creating：插入到数据库前触发
+ - created：插入到数据库后触发
+ - updating：更新到数据库前触发
+ - updated：更新到数据库后触发
+ - saving：保存到数据库前触发（插入/更新之前，无论插入还是更新都会触发）
+ - saved：保存到数据库后触发（插入/更新之后，无论插入还是更新都会触发）
+ - deleting：从数据库删除记录前触发
+ - deleted：从数据库删除记录后触发
+ - restoring：恢复软删除记录前触发
+ - restored：恢复软删除记录后触发
+
+#### 通过静态方法监听
+
+重写事件服务供应商的 boot 方法
+
+```php
+public function boot()
+{
+    parent::boot();
+
+    User::retrieved(function($user){
+        Log:info('从模型中获取用户:['. $user->id . ']' . $user->name);
+        // 接下来的user 表的查询都会被记录到 storage/log/ 里面去
+    });
+}
+```
+
+#### 通过订阅者监听模型事件
+
+```txt
+模型类-> [ 模型类与自定义事件建立对应关系 ] <-对应事件类-> 注册至监听器类
+
++------------------------+           +----------------------+
+| EventServiceProvider   +---------->+UserEventSubscriber   |
++------------------------+           +----------------------+
+                                     +------------------+
+                                     |UserDeleting      | <------ +---------------+
+                                     |                  |         |User           |
+                                     |Userdeleted       | ------> +---------------+
+                                     +------------------+
+```
+
+EXAMPLE 初始化事件类
+
+```bash
+php artsian make:event UserDeleting
+php artisan make:event UserDeleted
+```
+
+接下来在 `app\Events` 看到事件类,在这两个类的构造中中传入 `$user`
+
+```php
+public $user;
+public function __construct(User $user){
+    $this->user = $user
+}
+```
+
+在模型类中建立与事件类的映射
+
+```php
+protected $dispatchesEvents = [
+    'deleting'=>UserDeleting::class,
+    'deleted'=>UserDeleted::class,
+];
+```
+
+为模型类创建事件订阅者类
+
+```php
+<?php
+
+namespace App\Listeners;
+
+use App\Events\UserDeleting;
+use App\Events\UserDeleted;
+use Illuminate\Support\Facades\Log;
+
+class UserEventSubscriber
+{
+    public function onUserDeleting($event)
+    {
+        Log::info('用户即将删除[' . $event->user->id . ']:' . $event->user->name);
+    }
+    public function onUserDeleted($event)
+    {
+        Log::info('用户已经删除[' . $event->user->id . ']:' . $event->user->name);
+    }
+    public function subscribe($events)
+    {
+        $events->listen(
+            UserDeleting::class,
+            UserEventSubscriber::class . '@onUserDeleting'
+        );
+
+        $events->listen(
+            UserDeleted::class,
+            UserEventSubscriber::class . '@onUserDeleted'
+        );
+    }
+}
+```
+
+注册订阅者
+
+```php
+// app/Providers/EventServiceProvider.php
+protected $subscribe = [
+    UserEventSubscriber::class,
+];
+```
+
+#### 通过观察者监听模型事件
+
+创建针对`User`模型的观察者
+
+```bash
+php artisan make:observer UserObserver --model=User
+```
+
+生成如下`app\Observers`
+只需要填充对应的事件即可
+
+```php
+<?php
+
+namespace App\Observers;
+
+use App\User;
+use Illuminate\Support\Facades\Log;
+
+class UserObserver
+{
+    public function created(User $user)
+    {
+        Log::info();
+    }
+
+    public function updated(User $user)
+    {
+        //
+    }
+
+    public function deleted(User $user)
+    {
+        //
+    }
+
+    public function restored(User $user)
+    {
+        //
+    }
+
+    public function forceDeleted(User $user)
+    {
+        //
+    }
+}
+```
+
+在`User`模型上注册观察者即可生效
+在`EventServiceProvider`中的`boot`方法中注册
+
+```php
+public function boot()
+{
+    parent::boot();
+    User::observe(UserObserver::class);
+}
+```
+
+### 模型关联关系
+
+键入命令`php artisan make:model UserProfile -m` 同时创建迁移 与 模型
+编辑表字段
+```php
+public function up()
+{
+    Schema::create('user_profiles', function (Blueprint $table) {
+        $table->increments('id');
+        $table->integer('user_id')->unsigned()->default(0)->unique();
+        $table->string('bio')->nullable()->comment('个性签名');
+        $table->string('city')->nullable()->comment('所在城市');
+        $table->json('hobby')->nullable()->comment('个人爱好');
+        $table->timestamps();
+    });
+}
+```
+
+在`User`模型类中创建与`UserProfile`关联的方法
+
+```php
+// app\User.php
+public function profile(){
+    return $user->hasOne(UserProfile::class);
+}
+```
+
+然后在查询时调用
+
+```php
+ // UserController.php
+public function profile(){
+    $user = User::findOrFail(2);
+    $profile =  $user->profile;
+    dd($profile);
+}
+```
+
+**在关联关系的建立过程中，Eloquent 也遵循了「约定大于配置」的原则**hasOne 方法的完整签名是：
+
+`public function hasOne($related, $foreignKey = null, $localKey = null)`
+
+第一个参数是关联模型的类名，第二个参数是关联模型类所属表的外键，这里对应的是 user_profiles 表的 user_id 字段，第三个参数是关联表的外键关联到当前模型所属表的哪个字段，这里对应的是 users 表的 id 字段。为什么我们不需要指定 Laravel 就能完成这种关联呢，这是因为如果没有指定 $foreignKey，Eloquent 底层会通过如下方法去拼接：
+
+```php
+public function getForeignKey()
+{
+    return Str::snake(class_basename($this)).'_'.$this->getKeyName();
+}
+```
+
+#### 建立相对关联关系
+
+使用`belongsTo`方法建立一对一的关联关系
+
+```php
+// app\UserProfile.php
+public function user()
+{
+    return $this->belongsTo(User::class);
+}
+```
+
+使用关联方法名作为动态属性即可访问该模型所属的`User`模型实例
+
+```php
+$profile = UserProfile::findOrFail(2);
+$user = $profile->user;
+```
+
+`belongsTo` 其完整方法签名如下：
+
+```php
+public function belongsTo($related, $foreignKey = null, $ownerKey = null, $relation = null)
+```
+
+`$foreignKey`是当前模型类所属表的外键,即`user_profile`表的`user_id`字段
+`$ownerKey`是关联模型类所属表的主键 `user`表的`id`
+`$relation`默认约定是对应关联关系方法名,这里是`user`
+
+
+#### 一对多
+
+##### 建立关联关系
 
 ## Telescope 安装
 
