@@ -3082,6 +3082,10 @@ public function boot()
 
 ### 模型关联关系
 
+#### 一对一
+
+##### 建立关联关系
+
 键入命令`php artisan make:model UserProfile -m` 同时创建迁移 与 模型
 编辑表字段
 ```php
@@ -3131,7 +3135,7 @@ public function getForeignKey()
 }
 ```
 
-#### 建立相对关联关系
+##### 建立相对关联关系
 
 使用`belongsTo`方法建立一对一的关联关系
 
@@ -3161,9 +3165,231 @@ public function belongsTo($related, $foreignKey = null, $ownerKey = null, $relat
 `$relation`默认约定是对应关联关系方法名,这里是`user`
 
 
+**注意: 这里的方法名需要与当前关联模型所属表的主键一致,因为 $relation 变量取的是当前关联关系的方法名,所以如果你需要定义语义化的关联关系方法名,就需要输入 `belongsTo`的参数**
+
 #### 一对多
 
+返回模型类集合
+
 ##### 建立关联关系
+
+通过`hasMany`方法实现
+
+```php
+// User.php
+public function posts(){
+    return $this->hasMany(Posts::class);
+}
+```
+
+然后通过动态属性的方式查询:
+
+```php
+$user = User::findOrFail(1);
+$posts = $user->posts;
+```
+
+##### 建立相对关联关系
+
+```php
+// Post
+public function author(){
+    // 由于 方法名改为 author 不再遵循 约定.所以belongsTo的参数需要手动传入
+    return $this->belongsTo(User::class,'user_id','id','author'); 
+}
+```
+
+进行关联查询
+
+```php
+public function user_mm(){
+    $post = Post::find(6);
+    $author = $post->author;
+    dd($post,$author);
+}
+```
+
+##### 渴求式加载
+
+之前的关联关系查询都是通过动态属性查询,也可以称为*惰性加载*,用到的时候才去查询就意味着需要多次对数据库进行查询才能返回需要的结果.如果是单条记录获取关联关系就需要两次查询;如果是多条记录获取关联关系,就需要*N+1*次查询才能返回需要的结果
+
+使用`with`方法将需要查询的关联关系动态属性传入该方法,并将其链接到模型原有的查询中,就可以一次完成关联查询,加上模型自身查询,总共查询两次.这种查询方式被称为*渴求式加载*
+
+查询所有需求数据,然后根据需求取其中的关联数据
+
+```php
+public function user_mm(){
+    $post = Post::with('author')
+    ->where('views','>',0)
+    ->offset(1)
+    ->limit(10)
+    ->get();
+
+    $author = $post[6]->author;
+
+    dd($post[6],$author);
+}
+```
+
+#### 多对多
+
+多对多需要借助一张中间表才能建立关联关系.对于文章表`post`还需要一张`tag`表和`post_tag`表
+
+```bash
+php artisan make:model Tag -m
+php artisan make:model PostTag -m
+```
+
+填充 `tag` 迁移
+
+```php
+public function up()
+{
+    Schema::create('post_tags', function (Blueprint $table) {
+        $table->bigIncrements('id');
+        $table->integer('post_id')->unsigned()->default(0);
+        $table->integer('tag_id')->unsigned()->default(0);
+        $table->unique(['post_id','tag_id']);
+        $table->timestamps();
+    });
+}
+```
+
+填充`post_tag`迁移
+
+```php
+public function up(){
+    Schema::create('post_tags', function (Blueprint $table) {
+        $table->bigIncrements('id');
+        $table->integer('post_id')->unsigned()->default(0);
+        $table->integer('tag_id')->unsigned()->default(0);
+        $table->unique(['post_id','tag_id']);
+        $table->timestamps();
+    });
+}
+```
+
+创建填充器类与填充工厂类
+
+```bash
+php artisan make:seeder TagTableSeeder
+php artisan make:seeder PostTagTableSeeder
+php artisan make:factory TagFactory --model=Tag
+php artisan make:factory PostTagFactory --model=PostTag
+```
+
+定义工厂函数产出
+
+```php
+// TagFactory.php
+$factory->define(Tag::class, function (Faker $faker) {
+    return [
+       'name'=>$faker->name, 
+    ];
+});
+
+// PostTagFactory.php
+
+$factory->define(PostTag::class, function (Faker $faker) {
+    return [
+        "post_id"=>$faker->unique(true,20000)->numberBetween(0,10),
+        'tag_id'=>$faker->unique(true,20000)->numberBetween(0,10),
+    ];
+});
+```
+
+然后在各自的填充器类中实现工厂函数
+
+在模型`Post`中定义`tags`方法
+
+```php
+public function tags(){
+    // 建立 post_tags 表与 post 和 tag 表之间的关联
+    return $this->belongsToMany(Tag::class,'post_tags');
+}
+```
+
+在控制层中进行查询
+
+```php
+public function tags(){
+    $posts = Post::find(9);
+    $tag = $posts->tags;
+    dd($tag);
+}
+```
+
+或是**渴求式**查询
+
+```php
+public function tags(){
+    // with 的唯一参数 $relations 是当前 Post 模型的关联查询方法名
+    $posts = Post::with('tags')->find(9);
+    $tag = $posts->tags;
+    dd($tag);
+}
+```
+
+##### 多对多关联查询的底层约定
+
+`beloangsTo`方法签名:
+
+```php
+public function belongsToMany($related, 
+$table = null, 
+$foreignPivotKey = null, 
+$relatedPivotKey = null, 
+$parentKey = null, 
+$relatedKey = null, 
+$relation = null)
+```
+
+ - `$related` 关联模型类名,当前是 `Post`关联`Tag`
+ - `$table` 多对多关联的中间表名 `post_tags`
+ - `$foreignPivotKey` 中间表的当前模型外键`post_id`
+ - `$relatedPivotKey` 中间表当前关联模型的外键`tag_id`
+ - `$parentKey` 对应当前模型的哪个字段`id`
+ - `$relatedKey` 对应当前关联模型的哪个字段`id`
+ - `$relation` 表示关联关系名称,默认为当前关联方法名`tags`
+
+
+##### 多对多的相对关联关系
+
+在多对多关联关系中双方是对等的,不存在归属关系,所以对应查询只需要在`Tag`模型中创建查询方法即可
+
+```php
+public function posts(){
+    return $this->belongsToMany(Post::class,'post_tags');
+}
+```
+
+##### 获取中间表字段
+
+```php
+public function tags()
+{
+    return $this->belongsToMany(Tag::class, 'post_tags')
+                ->withTimestamps();
+
+    // or 获取 user_id 字段值
+    ->withPivot('user_id')->withTimestamps();
+}
+```
+
+##### 自定义中间表模型类
+
+中间表模型类继承自 Illuminate\Database\Eloquent\Relations\Pivot，Pivot 也是 Eloquent Model 类的子类，只不过为中间表操作定义了很多方法和属性，比如我们创建一个自定义的中间表模型类 PostTag
+
+```php
+namespace App;
+
+use Illuminate\Database\Eloquent\Relations\Pivot;
+
+class PostTag extends Pivot
+{
+    protected $table = 'post_tags';
+}
+```
 
 ## Telescope 安装
 
