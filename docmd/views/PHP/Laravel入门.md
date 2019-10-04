@@ -3391,6 +3391,9 @@ class PostTag extends Pivot
 }
 ```
 
+
+
+
 ## Telescope 安装
 
 注：Telescope 要求 Laravel 5.7.7+ 版本。你可以通过 php artisan --version 查看自己的 Laravel 版本。
@@ -3454,13 +3457,6 @@ public function register()
 **Telescope 可以通过 /telescope 后台访问**。和 Horizon 一样，默认情况下，你只能在本地开发环境（local）下访问。在你的 app/Providers/TelescopeServiceProvider.php 文件中，有一个 gate 方法，通过该访问控制方法，可以配置哪些用户可以在非本地环境访问 Telescope 后台，你可以根据需要随时修改该方法，以便限制对 Telescope 的访问：
 
 ```php
-/**
- * Register the Telescope gate.
- *
- * This gate determines who can access Telescope in non-local environments.
- *
- * @return void
- */
 protected function gate()
 {
     Gate::define('viewTelescope', function ($user) {
