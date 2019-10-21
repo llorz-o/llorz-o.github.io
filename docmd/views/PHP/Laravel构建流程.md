@@ -12,6 +12,12 @@ php artisan make:model Post
 php artisan make:migration create_posts_table --create=posts
 ```
 
+ - 更新迁移
+
+ ```bash
+ php artisan make:migration alter_users_add_nickname --table=users
+ ```
+
  - 创建模型工厂
 
 ```bash
