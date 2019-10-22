@@ -3506,9 +3506,8 @@ public function tags(){
 
 用户与文章表形成一对多关系,国家与用户形成一对多关系,那么国家与文章表就存在*远层一对多关系*
 
-
 ```txt
-              
+
 +------------------+             +-----------------+
 |   User Table     |   One-to-More    Post Table   |
 |                  +------------>+                 |
@@ -3570,7 +3569,7 @@ public function posts(){
 |   Posts Table              |     |   Video Table               |
 |                            |     |                             |
 |                            |     |                             |
-|                            |     |                             | 
+|                            |     |                             |
 +--------------+-------------+     +---------------------+-------+
                ^                                         ^
                +--------------+ item_type +--------------+
@@ -3581,7 +3580,7 @@ public function posts(){
                |   |     Comments Table             |    |
                +---+                                +----+
                    |                                |
-                   |                                |     
+                   |                                |
                    +----------------+---------------+
                                     ^
                                     |
@@ -3590,7 +3589,7 @@ public function posts(){
                    +----------------+---------------+
                    |     Users Table                |
                    |                                |
-                   |                                | 
+                   |                                |
                    |                                |
                    |                                |
                    +--------------------------------+
@@ -3610,7 +3609,7 @@ php artisan db:seed --class=CommentsTableSeeder
 
 ![UTOOLS1571638329537.png](http://yanxuan.nosdn.127.net/71212d8a3e2bed58c534a6be6079d58e.png)
 
-首先在Post和Video模型类中定义关联评论如下：
+首先在 Post 和 Video 模型类中定义关联评论如下：
 
 ```php
 public function comments(){
@@ -3671,7 +3670,6 @@ public function items(){
 #### 多对多的多态关联
 
 多对多的多态关联表现在标签与文章和视频的关系中,文章和视频有多个标签,单个标签也可获取到多个文章或类型
-
 
 ```txt
                            taggable_id
@@ -3740,6 +3738,17 @@ $this->morphToMany('App\Tag','taggable','taggables','taggable_id','tag_id',false
 public function tag(){
     $posts = Post::find(5);
     $post_tags = $posts->tag;
+}
+```
+
+或是在`tag`中查找`post`和`video`
+
+```php
+public function tags(){
+    $tags = Tag::find(3);
+    $tags_posts = $tags->posts;
+    $tags_videos = $tags->videos;
+    dd($tags_posts,$tags_videos);
 }
 ```
 
