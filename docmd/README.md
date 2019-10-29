@@ -1,16 +1,14 @@
 ---
 home: true
-bgImage: '/bg.jpg'
-faceImage: '/head.png'
+bgImage: /bg.gif
+faceImage: /head.png
 isShowTitleInHome: false
 bgImageStyle: {
-  maxWidth: '600px',
   width: '100%',
   display: block,
-  margin: '9rem auto 2rem',
-  background: '#fff',
-  borderRadius: '50%',
-  background-image: "./bg.jpg"
+  background: 'url("./bg.jpg")',
+  margin: '2rem auto 2rem',
+  background-size: '100%',
 }
 # isShowTitleInHome: false
 # actionText: Go
