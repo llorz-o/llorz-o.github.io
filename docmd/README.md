@@ -1,6 +1,8 @@
 ---
 home: true
-bgImage: /bg.gif
+bgImage: '/bg.jpg'
+faceImage: '/head.png'
+isShowTitleInHome: false
 bgImageStyle: {
   maxWidth: '600px',
   width: '100%',
@@ -8,6 +10,7 @@ bgImageStyle: {
   margin: '9rem auto 2rem',
   background: '#fff',
   borderRadius: '50%',
+  background-image: "./bg.jpg"
 }
 # isShowTitleInHome: false
 # actionText: Go
@@ -29,5 +32,4 @@ bgImageStyle: {
 
 关于前端的埋点，性能监控，异常捕获与上报，用户数据分析与可视化。
 
-关于后端的学习,PHP，Python，GraphQL未来的路还很长。。。
-
+关于后端的学习,PHP，Python，GraphQL 未来的路还很长。。。

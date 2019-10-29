@@ -1,6 +1,6 @@
 module.exports = {
     title: "LLORZ-O",
-    description: "operate sao hu ?",
+    description: "与君共勉",
     dest: "../temp",
     // base: '',
     head: [
@@ -22,8 +22,7 @@ module.exports = {
     theme: "reco",
     themeConfig: {
         type: "blog",
-        nav: [
-            {
+        nav: [{
                 text: "主页",
                 link: "/",
                 icon: "reco-home"
@@ -46,8 +45,7 @@ module.exports = {
             {
                 text: "关于我",
                 icon: "reco-message",
-                items: [
-                    {
+                items: [{
                         text: "GitHub",
                         link: "https://github.com/Mrzhoulichao",
                         icon: "reco-github"
@@ -60,7 +58,7 @@ module.exports = {
                     {
                         text: "备忘录",
                         link: "/unpack/memo.html",
-                        icon:'reco-document',
+                        icon: 'reco-document',
                     }
                     // { text: 'CSDN', link: 'https://blog.csdn.net/recoluan', icon: 'reco-csdn' },
                     // { text: '博客圆', link: 'https://www.cnblogs.com/luanhewei/', icon: 'reco-bokeyuan' },
@@ -87,7 +85,15 @@ module.exports = {
             avatar: "robohash",
             placeholder: "我膝盖中了一箭 !Orz" //
         },
-        logo: "/head.jpeg",
+        themePicker: {
+            Lime: '#eaff8f',
+            "Daybreak Blue": '#91d5ff',
+            "Geeke Blue": '#adc6ff',
+            "Golden Purple": "#efdbff",
+            "Gray": "#E1DBCD",
+            "Green": "#AFC8BA"
+        },
+        logo: "/head.jpg",
         // 博客设置
         type: "blog",
         // 关闭华为文案
@@ -100,7 +106,7 @@ module.exports = {
         // 最后更新时间
         lastUpdated: "Last Updated",
         // 作者
-        author: "__zhou",
+        author: "T9",
         // 备案号
         // record: 'xxxx',
         // 项目开始时间
@@ -136,7 +142,7 @@ module.exports = {
             selector: ".content__default p img",
             options: {
                 margin: 0,
-                background:'#000000',
+                background: 'rgba(0,0,0,.3)',
                 scrollOffset: 0,
             }
         },
