@@ -9,11 +9,11 @@ tags:
  - TypeScript
 ---
 
-JavaScript的强类型语言。
+> JavaScript的强类型语言。
 
-JavaScript的超集。
+> JavaScript的超集。
 
-同样比较好的还有[Flow](https://flow.org/en/) :fire:
+> 同样比较好的还有[Flow](https://flow.org/en/) :fire:
 
 <!-- more -->
 

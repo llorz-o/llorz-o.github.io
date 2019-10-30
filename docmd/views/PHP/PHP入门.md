@@ -10,6 +10,10 @@ categories:
  - 后端
 ---
 
+> `PHP`的基本语法,看着教程来的
+
+<!-- more -->
+
 # PHP
 
 ## Apache安装&卸载

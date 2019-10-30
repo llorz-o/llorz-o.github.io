@@ -146,6 +146,13 @@ module.exports = {
                 scrollOffset: 0,
             }
         },
+        "@vuepress-reco/vuepress-plugin-pagation":{},
+        "@vuepress-reco/vuepress-plugin-screenfull":{},
+        "@vuepress-reco/vuepress-plugin-loading-page":{},
+        "@vuepress-reco/vuepress-plugin-kan-ban-niang":{
+            theme:["shizuku"],
+            description:true
+        }
     },
     configureWebpack: {
         resolve: {

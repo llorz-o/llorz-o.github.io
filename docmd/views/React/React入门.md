@@ -8,9 +8,7 @@ categories:
  - 前端
 ---
 
-![UTOOLS1564394783810.png](http://yanxuan.nosdn.127.net/a4e2dc3612c233072ba6e70a82f59915.png)
-
-​	自学`React`起就没再用过它，觉得挺尴尬，现在又要开始用`React`做项目了，重新复习一遍。。
+> 简单的过一遍,项目需要
 
 <!-- more -->
 
