@@ -87,11 +87,11 @@ module.exports = {
         },
         themePicker: {
             Lime: '#eaff8f',
-            "Daybreak Blue": '#91d5ff',
-            "Geeke Blue": '#adc6ff',
-            "Golden Purple": "#efdbff",
-            "Gray": "#E1DBCD",
-            "Green": "#AFC8BA"
+            DaybreakBlue: '#91d5ff',
+            GeekeBlue: '#adc6ff',
+            GoldenPurple: "#efdbff",
+            Gray: "#E1DBCD",
+            Green: "#AFC8BA"
         },
         logo: "/head.jpg",
         // 博客设置

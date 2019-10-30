@@ -15,16 +15,48 @@ title: 干货
 
 ```json
 
-	"todo-tree.tags": [
-        "todo",
-        "fixme",
-        "tag",
-        "done",
-        "note"
-    ], 
-    "todo-tree.regexCaseSensitive": false,
-    "todo-tree.showInExplorer": true,
-    "todo-tree.defaultHighlight": {
+	"todo-tree.tree.tagsOnly": true,
+    "todo-tree.general.tags": [
+        "TODO",
+        "FIXME",
+        "TAG",
+        "DONE",
+        "NOTE"
+    ],
+    "todo-tree.regex.regex": "((//|#|<!--|;|/\\*)\\s*($TAGS)|^\\s*- \\[ \\])",
+    "todo-tree.highlights.customHighlight": {
+        "TODO": {
+            "background": "#efdbff",
+            "rulerColour": "#efdbff",
+            "iconColour": "#efdbff"
+        },
+        "FIXME": {
+            "background": "red",
+            "icon": "beaker",
+            "rulerColour": "red",
+            "iconColour": "red"
+        },
+        "TAG": {
+            "background": "blue",
+            "icon": "tag",
+            "rulerColour": "blue",
+            "iconColour": "blue",
+            "rulerLane": "full"
+        },
+        "DONE": {
+            "background": "green",
+            "icon": "issue-closed",
+            "rulerColour": "green",
+            "iconColour": "green"
+        },
+        "NOTE": {
+            "background": "#f90",
+            "icon": "note",
+            "rulerColour": "#f90",
+            "iconColour ": "#f90"
+        }
+    },
+    "todo-tree.highlights.defaultHighlight": {
         "foreground": "white",
         "background": "yellow",
         "icon": "check",
@@ -32,38 +64,8 @@ title: 干货
         "type": "tag",
         "iconColour": "yellow"
     },
-    "todo-tree.customHighlight": {
-        "todo": {
-            "background": "yellow",
-            "rulerColour": "yellow",
-            "iconColour": "yellow"
-        },
-        "fixme": {
-            "background": "red",
-            "icon": "beaker",
-            "rulerColour": "red",
-            "iconColour": "red",
-        },
-        "tag": {
-            "background": "blue",
-            "icon": "tag",
-            "rulerColour": "blue",
-            "iconColour": "blue",
-            "rulerLane": "full"
-        },
-        "done": {
-            "background": "green",
-            "icon": "issue-closed",
-            "rulerColour": "green",
-            "iconColour": "green",
-        },
-        "note": {
-            "background": "#f90",
-            "icon": "note",
-            "rulerColour": "#f90",
-            "iconColour ": "#f90"
-        }
-    }
+    "todo-tree.regex.regexCaseSensitive": false,
+    "todo-tree.tree.showInExplorer": true,
 
 ```
 

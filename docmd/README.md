@@ -9,6 +9,8 @@ bgImageStyle: {
   background: 'url("./bg.jpg")',
   margin: '2rem auto 2rem',
   background-size: '100%',
+  background-repeat: 'no-reapeat',
+  background-position: '100%',
 }
 # isShowTitleInHome: false
 # actionText: Go
