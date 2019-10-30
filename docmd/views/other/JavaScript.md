@@ -2,10 +2,9 @@
 title: JavaScript
 date: 2019-08-16
 categories:
- - 前端
+ - 代码
 tags:
  - JavaScript
- - 全部
 ---
 
 关于JavaScript的各种概念的总结.

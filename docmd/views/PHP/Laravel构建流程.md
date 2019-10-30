@@ -1,3 +1,12 @@
+---
+title: laravel构建流程
+date: 2019-10-30
+tags:
+ - laravel
+ - PHP
+categories:
+ - 代码
+---
 ## 创建数据模型
 
  - 创建模型类

@@ -2,9 +2,8 @@
 title: Cmder配置
 date: 2019-09-06
 tags:
- - 全部
  - Tool
- - 配置
+ - Cmder
 categories:
  - Tools
 ---

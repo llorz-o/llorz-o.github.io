@@ -3,9 +3,8 @@ title: React
 date: 2019-07-29
 tags:
  - React
- - 全部
 categories:
- - 前端
+ - 代码
 ---
 
 > 简单的过一遍,项目需要

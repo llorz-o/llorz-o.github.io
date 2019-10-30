@@ -5,7 +5,8 @@
   "author": "reco_luan",
   "scripts": {
     "dev": "vuepress dev docmd",
-    "build": "vuepress build docmd"
+    "build": "vuepress build docmd",
+    "start": "npm run dev"
   },
   "devDependencies": {
     "@vuepress/plugin-medium-zoom": "^1.0.0-rc.1",

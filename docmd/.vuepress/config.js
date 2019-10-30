@@ -137,23 +137,39 @@ module.exports = {
     markdown: {
         lineNumbers: true
     },
-    plugins: {
-        "@vuepress/medium-zoom": {
+    plugins: [
+        ["@vuepress/medium-zoom", {
             selector: ".content__default p img",
             options: {
                 margin: 0,
                 background: 'rgba(0,0,0,.3)',
                 scrollOffset: 0,
             }
-        },
-        "@vuepress-reco/vuepress-plugin-pagation":{},
-        "@vuepress-reco/vuepress-plugin-screenfull":{},
-        "@vuepress-reco/vuepress-plugin-loading-page":{},
-        "@vuepress-reco/vuepress-plugin-kan-ban-niang":{
-            theme:["shizuku"],
-            description:true
-        }
-    },
+        }],
+        ["@vuepress-reco/vuepress-plugin-pagation"],
+        "@vuepress-reco/vuepress-plugin-screenfull",
+        "@vuepress-reco/vuepress-plugin-loading-page",
+        ["@vuepress-reco/vuepress-plugin-kan-ban-niang", {
+            theme: ["shizuku"],
+            description: true,
+            clean: true,
+        }]
+    ],
+    // plugins: {
+    //     "@vuepress/medium-zoom": {
+
+    //     },
+    //     "@vuepress-reco/vuepress-plugin-pagation": {},
+    //     "@vuepress-reco/vuepress-plugin-screenfull": {},
+    //     "@vuepress-reco/vuepress-plugin-loading-page": {
+    //         perPage: 5
+    //     },
+    //     "@vuepress-reco/vuepress-plugin-kan-ban-niang": {
+    //         theme: ["shizuku"],
+    //         description: true,
+    //         clean: true,
+    //     }
+    // },
     configureWebpack: {
         resolve: {
             alias: {

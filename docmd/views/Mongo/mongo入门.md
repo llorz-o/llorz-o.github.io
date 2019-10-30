@@ -1,11 +1,11 @@
 ---
 title: Mongodb
-date: 2019-6-28
+date: 2019-06-28
 categories:
- - 数据库 
+ - 代码
 tags:
  - MongoDB
- - 全部
+ - 数据库 
 ---
 
 > `MongoDB`的基本特性,选择性的过一遍

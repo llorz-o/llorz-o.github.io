@@ -2,10 +2,8 @@
 title: TypeScript
 date: 2019-08-16
 categories:
- - 前端
+ - 代码
 tags:
- - 全部
- - 前端
  - TypeScript
 ---
 

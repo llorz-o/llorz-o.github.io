@@ -1,9 +1,8 @@
 ---
 title: reco MD 的书写规则
-date: 2019-6-26
+date: 2019-06-26
 tags:
  - Markdown
- - 全部
 categories:
  - Chaos
 ---

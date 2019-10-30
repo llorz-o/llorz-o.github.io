@@ -2,12 +2,9 @@
 title: PHP
 date: 2019-07-13
 tags:
- - 后端
  - PHP
- - 入门
- - 全部
 categories: 
- - 后端
+ - 代码
 ---
 
 > `PHP`的基本语法,看着教程来的

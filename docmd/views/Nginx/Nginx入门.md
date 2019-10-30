@@ -1,12 +1,12 @@
 ---
 title: Nginx
-date: 2019-8-15
+date: 2019-08-15
 categories:
- - 后端
+ - 代码
 tags:
- - 全部
- - 入门
  - Nginx
- - 后端
-public: false
+ - 服务器
+keys: 
+ - '725361'
+publish: false
 ---

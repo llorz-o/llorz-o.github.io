@@ -1,12 +1,11 @@
 ---
 title: vuex
-date: 2019-6-27
+date: 2019-06-27
 tags:
  - VueX
  - Vue
- - 全部
 categories:
- - Chaos
+ - 代码
 ---
 
 > 此篇为了记录vuex如何使用，以及使用时碰到的错误
