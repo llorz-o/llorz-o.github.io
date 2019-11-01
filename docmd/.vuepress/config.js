@@ -120,15 +120,6 @@ module.exports = {
         //   color: '#42b983',
         //   lineColor: '#42b983'
         // },
-
-        /**
-         * valine 设置 (if you need valine comment )
-         */
-
-        // valineConfig: {
-        //   appId: '...', //your appId
-        //   appKey: '...', // your appKey
-        // }
         serviceWorker: {
             updatePopup: true
         },
@@ -146,30 +137,12 @@ module.exports = {
                 scrollOffset: 0,
             }
         }],
-        ["@vuepress-reco/vuepress-plugin-pagation"],
-        "@vuepress-reco/vuepress-plugin-screenfull",
-        "@vuepress-reco/vuepress-plugin-loading-page",
         ["@vuepress-reco/vuepress-plugin-kan-ban-niang", {
             theme: ["shizuku"],
             description: true,
             clean: true,
         }]
     ],
-    // plugins: {
-    //     "@vuepress/medium-zoom": {
-
-    //     },
-    //     "@vuepress-reco/vuepress-plugin-pagation": {},
-    //     "@vuepress-reco/vuepress-plugin-screenfull": {},
-    //     "@vuepress-reco/vuepress-plugin-loading-page": {
-    //         perPage: 5
-    //     },
-    //     "@vuepress-reco/vuepress-plugin-kan-ban-niang": {
-    //         theme: ["shizuku"],
-    //         description: true,
-    //         clean: true,
-    //     }
-    // },
     configureWebpack: {
         resolve: {
             alias: {
