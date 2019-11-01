@@ -2,7 +2,7 @@
 title: Nginx
 date: 2019-08-15
 categories:
- - 代码
+ - Code
 tags:
  - Nginx
  - 服务器

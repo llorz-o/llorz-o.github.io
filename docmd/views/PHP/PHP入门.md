@@ -4,7 +4,7 @@ date: 2019-07-13
 tags:
  - PHP
 categories: 
- - 代码
+ - Code
 ---
 
 > `PHP`的基本语法,看着教程来的

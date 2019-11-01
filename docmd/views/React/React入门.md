@@ -4,7 +4,7 @@ date: 2019-07-29
 tags:
  - React
 categories:
- - 代码
+ - Code
 ---
 
 > 简单的过一遍,项目需要
