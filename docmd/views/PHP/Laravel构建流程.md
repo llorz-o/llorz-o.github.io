@@ -5,7 +5,7 @@ tags:
  - laravel
  - PHP
 categories:
- - Code
+ - 代码
 ---
 ## 创建数据模型
 

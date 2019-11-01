@@ -5,7 +5,7 @@ tags:
  - VueX
  - Vue
 categories:
- - Code
+ - 代码
 ---
 
 > 此篇为了记录vuex如何使用，以及使用时碰到的错误

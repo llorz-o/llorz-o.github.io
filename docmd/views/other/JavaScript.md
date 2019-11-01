@@ -2,7 +2,7 @@
 title: JavaScript
 date: 2019-08-16
 categories:
- - Code
+ - 代码
 tags:
  - JavaScript
 ---

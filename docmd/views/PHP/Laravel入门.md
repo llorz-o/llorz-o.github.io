@@ -5,7 +5,7 @@ tags:
  - PHP
  - laravel
 categories:
- - Code
+ - 代码
 ---
 
 # 准备
