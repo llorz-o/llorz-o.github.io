@@ -3,6 +3,8 @@ home: true
 bgImage: /bg.gif
 faceImage: /head.png
 isShowTitleInHome: false
+isShowComments: false
+comments: false
 bgImageStyle: {
   width: '100%',
   display: block,
