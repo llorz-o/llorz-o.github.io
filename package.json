@@ -18,6 +18,7 @@
     "vuepress-theme-reco": "^1.1.0"
   },
   "dependencies": {
+    "@vuepress-reco/vuepress-plugin-comments": "^1.0.4",
     "@vuepress-reco/vuepress-plugin-kan-ban-niang": "^1.0.3",
     "@vuepress-reco/vuepress-plugin-loading-page": "^1.0.0",
     "@vuepress-reco/vuepress-plugin-pagation": "^1.0.3",

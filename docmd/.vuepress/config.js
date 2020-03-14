@@ -77,14 +77,14 @@ module.exports = {
             }
         },
         // valine
-        valineConfig: {
-            appId: "9csYWHvENKpqFaCL7gssFKk3-gzGzoHsz", // your appId
-            appKey: "w3k3QT2vQMEXEnAf0VzdUjzK", // your appKey
-            notify: true, // 邮件提醒
-            verify: true, // 评论验证
-            avatar: "robohash",
-            placeholder: "我膝盖中了一箭 !Orz" //
-        },
+        // valineConfig: {
+        //     appId: "9csYWHvENKpqFaCL7gssFKk3-gzGzoHsz", // your appId
+        //     appKey: "w3k3QT2vQMEXEnAf0VzdUjzK", // your appKey
+        //     notify: true, // 邮件提醒
+        //     verify: true, // 评论验证
+        //     avatar: "robohash",
+        //     placeholder: "我膝盖中了一箭 !Orz" //
+        // },
         themePicker: {
             Lime: '#eaff8f',
             DaybreakBlue: '#91d5ff',
@@ -141,6 +141,17 @@ module.exports = {
             theme: ["shizuku"],
             description: true,
             clean: true,
+        }],
+        ['@vuepress-reco/comments', {
+            solution: "valine",
+            options: {
+                appId: "9csYWHvENKpqFaCL7gssFKk3-gzGzoHsz", // your appId
+                appKey: "w3k3QT2vQMEXEnAf0VzdUjzK", // your appKey
+                notify: true, // 邮件提醒
+                verify: true, // 评论验证
+                avatar: "robohash",
+                placeholder: "我膝盖中了一箭 !Orz" //
+            }
         }]
     ],
     configureWebpack: {
