@@ -1,8 +1,7 @@
 ---
 isTimeLine: true
 sidebar: false
-isShowComments: false
-comments: false
+isComment: false
 ---
 
 ## Time Line
