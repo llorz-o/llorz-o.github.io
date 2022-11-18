@@ -3,7 +3,7 @@ title: trading-view
 toc: true
 date: 2022-11-06 17:44:34
 tags:
-  - 虚拟币
+  - 加密货币
   - 交易
   - TradingView
 categories:	
