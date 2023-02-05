@@ -1,8 +1,17 @@
 ---
-
+title: ResilioSync
+toc: true
+date: 2023-02-05
+tags:
+  - 服务
+  - 服务器
+  - Resilio Sync
+categories:	
+  - 服务器
+banner: /2023/02/05/ResilioSync/maxresdefault.jpg
 ---
 
-
+![maxresdefault](ResilioSync/maxresdefault.jpg)
 
 ## 服务器上的 Resilio Sync 
 
