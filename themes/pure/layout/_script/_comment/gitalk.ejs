@@ -12,7 +12,8 @@
     id: md5(location.pathname),
     distractionFreeMode: true,
     language: '<%= theme.comment.gitalk.language %>',
-    enableHotKey: '<%= theme.comment.gitalk.enableHotKey %>'
+    enableHotKey: '<%= theme.comment.gitalk.enableHotKey %>',
+    proxy: '<%= theme.comment.gitalk.proxy %>'
   })
   gitalk.render('comments')
   </script>
