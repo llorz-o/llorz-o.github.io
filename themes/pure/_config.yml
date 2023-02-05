@@ -10,6 +10,7 @@ menu:
   # Books: books  # 豆瓣书单
   # Links: links  # 友链
   # About: about  # 关于
+  BookList: booklist
 
 # Enable/Disable menu icons
 menu_icons:
@@ -24,6 +25,7 @@ menu_icons:
   about: icon-cup-fill
   lab: icon-link
   note: icon-book
+  booklist: icon-book-shelf
 
 # rss
 rss: /atom.xml
