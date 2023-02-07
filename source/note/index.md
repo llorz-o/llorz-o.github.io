@@ -5,11 +5,17 @@ date: 2022-10-14 17:20:20
 
 [每日新鲜事](/2022/10/14/每日新鲜事/)
 
+## Linux FTP 上传解压BUG
 
+> 从`Windows`上传`zip`文件到`Linux`时需要修改传输模式为`binary`,具体切换如下
+>
+> ```bash
+> ftp> bin
+> 200 TYPE is now 8-bit binary # 出现下面这行就是 binary 传输模式
+> ```
+>
+> 如果不进行切换的话将无法成功`unzip`传输的文件
 
-<script>
-    console.log('script running')
-</script>
 ## 脚本使用
 
 ```bash
