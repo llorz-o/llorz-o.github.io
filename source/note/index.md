@@ -5,6 +5,14 @@ date: 2022-10-14 17:20:20
 
 [每日新鲜事](/2022/10/14/每日新鲜事/)
 
+
+
+## Hestia CP
+
+`nginx` 配置文件模板`/usr/local/hestia/data/templates/web/nginx/`
+
+`nginx` 创建域后的配置文件路径：`/etc/nginx/conf.d/domains`
+
 ## Linux FTP 上传解压BUG
 
 > 从`Windows`上传`zip`文件到`Linux`时需要修改传输模式为`binary`,具体切换如下

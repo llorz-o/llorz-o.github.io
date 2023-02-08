@@ -20,15 +20,15 @@
   
   
   <title>事记 | llorz</title>
-  <meta name="description" content="每日新鲜事 Linux FTP 上传解压BUG 从Windows上传zip文件到Linux时需要修改传输模式为binary,具体切换如下 12ftp&gt; bin200 TYPE is now 8-bit binary # 出现下面这行就是 binary 传输模式  如果不进行切换的话将无法成功unzip传输的文件  脚本使用12hexo new post title # 创建一篇文章hexo">
+  <meta name="description" content="每日新鲜事 Hestia CPnginx 配置文件模板&#x2F;usr&#x2F;local&#x2F;hestia&#x2F;data&#x2F;templates&#x2F;web&#x2F;nginx&#x2F; nginx 创建域后的配置文件路径：&#x2F;etc&#x2F;nginx&#x2F;conf.d&#x2F;domains Linux FTP 上传解压BUG 从Windows上传zip文件到Linux时需要修改传输模式为binary,具体切换如下 12ftp&gt; bin200 TYPE">
 <meta property="og:type" content="website">
 <meta property="og:title" content="事记">
 <meta property="og:url" content="https://llorz-o.github.io/note/index.html">
 <meta property="og:site_name" content="llorz">
-<meta property="og:description" content="每日新鲜事 Linux FTP 上传解压BUG 从Windows上传zip文件到Linux时需要修改传输模式为binary,具体切换如下 12ftp&gt; bin200 TYPE is now 8-bit binary # 出现下面这行就是 binary 传输模式  如果不进行切换的话将无法成功unzip传输的文件  脚本使用12hexo new post title # 创建一篇文章hexo">
+<meta property="og:description" content="每日新鲜事 Hestia CPnginx 配置文件模板&#x2F;usr&#x2F;local&#x2F;hestia&#x2F;data&#x2F;templates&#x2F;web&#x2F;nginx&#x2F; nginx 创建域后的配置文件路径：&#x2F;etc&#x2F;nginx&#x2F;conf.d&#x2F;domains Linux FTP 上传解压BUG 从Windows上传zip文件到Linux时需要修改传输模式为binary,具体切换如下 12ftp&gt; bin200 TYPE">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-10-14T09:20:20.000Z">
-<meta property="article:modified_time" content="2023-02-07T10:58:54.803Z">
+<meta property="article:modified_time" content="2023-02-08T09:31:38.508Z">
 <meta property="article:author" content="Richard Joe">
 <meta property="article:tag" content="llorz">
 <meta name="twitter:card" content="summary">
@@ -379,6 +379,8 @@
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <p><a href="/2022/10/14/%E6%AF%8F%E6%97%A5%E6%96%B0%E9%B2%9C%E4%BA%8B/">每日新鲜事</a></p>
+<h2 id="Hestia-CP"><a href="#Hestia-CP" class="headerlink" title="Hestia CP"></a>Hestia CP</h2><p><code>nginx</code> 配置文件模板<code>/usr/local/hestia/data/templates/web/nginx/</code></p>
+<p><code>nginx</code> 创建域后的配置文件路径：<code>/etc/nginx/conf.d/domains</code></p>
 <h2 id="Linux-FTP-上传解压BUG"><a href="#Linux-FTP-上传解压BUG" class="headerlink" title="Linux FTP 上传解压BUG"></a>Linux FTP 上传解压BUG</h2><blockquote>
 <p>从<code>Windows</code>上传<code>zip</code>文件到<code>Linux</code>时需要修改传输模式为<code>binary</code>,具体切换如下</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ftp&gt; bin</span><br><span class="line">200 TYPE is now 8-bit binary <span class="comment"># 出现下面这行就是 binary 传输模式</span></span><br></pre></td></tr></table></figure>
