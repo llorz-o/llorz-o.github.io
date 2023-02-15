@@ -7,6 +7,8 @@ date: 2022-10-14 17:20:20
 
 ## Linux 系统语言设置
 
+[Debian & Ubuntu & CentOS 更改系统语言方法 – 主机指南 (hostarr.com)](https://www.hostarr.com/change-language-in-linux/)
+
 ![image-20230209160857618](index/image-20230209160857618.png)
 
 ## Hestia CP
