@@ -5,6 +5,12 @@ date: 2022-10-14 17:20:20
 
 [每日新鲜事](/2022/10/14/每日新鲜事/)
 
+## 在`windows`中运行`sh`脚本
+
+```bash
+start "" "%PROGRAMFILES%\Git\bin\sh.exe" -c "sh autoBuild.sh"
+```
+
 ## Linux 系统语言设置
 
 [Debian & Ubuntu & CentOS 更改系统语言方法 – 主机指南 (hostarr.com)](https://www.hostarr.com/change-language-in-linux/)
