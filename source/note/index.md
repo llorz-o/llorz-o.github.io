@@ -5,6 +5,41 @@ date: 2022-10-14 17:20:20
 
 [每日新鲜事](/2022/10/14/每日新鲜事/)
 
+
+
+## FRP 内网穿透客户端配置
+
+```ini
+[common]
+server_addr = 156.67.214.214
+server_port = 7000
+token = 
+
+admin_addr = 127.0.0.1
+admin_port = 7400
+admin_user = admin
+admin_pwd = admin
+
+[ssh]
+type = tcp
+local_ip = 127.0.0.1
+local_port = 22
+remote_port = 6000
+
+[web]
+type = http
+local_port = 80
+custom_domains = frps.llorz.online
+```
+
+## 打开终端就能使用默认的nvm node
+
+使用`nvm install 16.15.1`创建`~/.nvmrc`
+
+```
+16.15.1
+```
+
 ## 在`windows`中运行`sh`脚本
 
 ```bash
