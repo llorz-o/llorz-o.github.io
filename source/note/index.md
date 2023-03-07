@@ -32,7 +32,9 @@ date: 2022-10-14 17:20:20
 | Eagle Get      | 下载                 | 猎鹰，是一款国外免费下载神器，与迅雷不同，**EagleGet**更加简洁、清爽的界面，体积小。支持HTTP、HTTPS、FTP、MMS、RTSP，BT |      |
 | 优效日历       | 日历                 | 增强windows日历                                              |      |
 | Drop It        | 文件资源管理         | 全自动文件管理                                               |      |
-|                |                      |                                                              |      |
+| ScreenToGif    | 录屏 gif             | 保存录屏为 Gif，不用再为短时间的操作录屏而烦恼啦，默认临时文件保存五天 |      |
+| PicGo          | 图床                 | 强大的图床管理工具                                           |      |
+| 硕鼠           | 视频 下载            | https://www.flvcd.com/                                       |      |
 
 ## 网穿透客户端配置
 
