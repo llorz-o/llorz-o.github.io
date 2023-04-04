@@ -9,10 +9,6 @@ date: 2022-10-14 17:20:20
 
 ## Windows software
 
-
-
-## FRP 内
-
 | 名字           | 类型                 | 简介                                                         | 链接 |
 | -------------- | -------------------- | ------------------------------------------------------------ | ---- |
 | Clover         | 文件资源管理【free】 | **Clover**这个小工具，能让**本地资源管理器实现“标签化”的效果**，就像谷歌 Chrome 浏览器那样方便好用。在查看和操作多个不同路径的文件夹时尤为方便，极大提高电脑操作的效率！ |      |
@@ -35,30 +31,19 @@ date: 2022-10-14 17:20:20
 | ScreenToGif    | 录屏 gif             | 保存录屏为 Gif，不用再为短时间的操作录屏而烦恼啦，默认临时文件保存五天 |      |
 | PicGo          | 图床                 | 强大的图床管理工具                                           |      |
 | 硕鼠           | 视频 下载            | https://www.flvcd.com/                                       |      |
+| files          | 文件资源管理         | [files-community/Files：为 Windows 构建最佳文件管理器体验 (github.com)](https://github.com/files-community/Files) |      |
 
 ## 网穿透客户端配置
 
 ```ini
 [common]
-server_addr = 156.67.214.214
-server_port = 7000
-token = 
-
-admin_addr = 127.0.0.1
-admin_port = 7400
-admin_user = admin
-admin_pwd = admin
-
-[ssh]
-type = tcp
-local_ip = 127.0.0.1
-local_port = 22
-remote_port = 6000
-
-[web]
-type = http
-local_port = 80
-custom_domains = frps.llorz.online
+bind_port=7000
+token=725361
+vhost_http_port=8080
+vhost_https_port=8443
+dashboard_port=7500
+dashboard_user=richard
+dashboard_pwd=725361
 ```
 
 ## 打开终端就能使用默认的nvm node
