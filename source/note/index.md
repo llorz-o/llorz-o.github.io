@@ -13,7 +13,7 @@ date: 2022-10-14 17:20:20
 
 <!-- www.sehuatang.net -->
 
-<a class="link" href="www.sehuatang.net">色花堂</a>
+<a class="link" target="_blank" href="https://www.sehuatang.net">色花堂</a>
 <div class="flex items-center py-1">
     <input class="input" id="sht_account" type="text" value="llorz_o" readonly>
     <button class="input-button" type="button"
