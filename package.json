@@ -7,7 +7,8 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "npm run build && git add . && git commit -m '' && git push",
-    "server": "hexo server"
+    "server": "hexo server",
+    "style": "npx tailwindcss -i ./src/input.css -o ./themes/pure/source/css/tailwind.css --watch"
   },
   "hexo": {
     "version": "6.3.0"
@@ -24,5 +25,8 @@
     "hexo-renderer-stylus": "^2.1.0",
     "hexo-server": "^3.0.0",
     "hexo-theme-landscape": "^0.0.3"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.3"
   }
 }

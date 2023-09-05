@@ -7,6 +7,47 @@ date: 2022-10-14 17:20:20
 
 
 
+## 色花堂账号密码
+
+<!-- 色花堂账号密码 -->
+
+  <div class="flex items-center py-1">
+    <input class="text-sm font-serif font-bold text-gray-800 h-6 w-auto px-2 
+      border border-solid border-gray-500 rounded 
+        active:outline-sky-300 active:outline-1 
+        focus:outline-sky-400 focus:outline-2" id="sht_account" type="text" value="llorz_o" readonly>
+    <button class="text-sm h-6 px-2 ml-2 text-white bg-blue-500 rounded hover:bg-blue-600" type="button"
+      onclick="document.getElementById('sht_account').select();document.execCommand('Copy');">
+      复制
+    </button>
+  </div>
+  <div class="flex items-center py-1">
+    <input class="text-sm font-serif font-bold text-gray-800 h-6 w-auto px-2 
+      border border-solid border-gray-500 rounded 
+        active:outline-sky-300 active:outline-1 
+        focus:outline-sky-400 focus:outline-2" id="sht_password" type="text" value="zlc@ID725361" readonly>
+    <button class="text-sm h-6 px-2 ml-2 text-white bg-blue-500 rounded hover:bg-blue-600" type="button"
+      onclick="document.getElementById('sht_password').select();document.execCommand('Copy');">
+      复制
+    </button>
+  </div>
+
+## Sansung wallet password
+
+<div class="flex items-center py-1">
+    <input class="text-sm font-serif font-bold text-gray-800 h-6 w-auto px-2 
+                  border border-solid border-gray-500 rounded 
+                  active:outline-sky-300 active:outline-1 
+                  focus:outline-sky-400 focus:outline-2" id="samsungpassword" type="text" value="]gAJp)3W)k" readonly>
+    <button class="text-sm h-6 px-2 ml-2 text-white bg-blue-500 rounded hover:bg-blue-600" type="button"
+            onclick="document.getElementById('samsungpassword').select();document.execCommand('Copy');">
+        复制
+    </button>
+</div>
+
+
+
+
 ## Windows software
 
 | 名字           | 类型                 | 简介                                                         | 链接 |

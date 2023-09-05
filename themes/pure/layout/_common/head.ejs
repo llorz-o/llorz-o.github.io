@@ -52,6 +52,12 @@
   <% if (theme.site.favicon){ %>
     <link rel="icon" href="<%- theme.site.favicon %>" type="image/x-icon">
   <% } %>
+  <style>
+    html {
+      font-size: 16px !important;
+    }
+  </style>
+  <link rel="stylesheet" href="/css/tailwind.css">
   <%- css('css/style') %>
   <% if (page.mathjax) { %>
     <link href="//cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" rel="stylesheet">
