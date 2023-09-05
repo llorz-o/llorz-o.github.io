@@ -19,3 +19,7 @@
   rounded 
   hover:bg-blue-600;
 }
+
+.link {
+  @apply underline text-blue-500 active:text-blue-700 hover:text-red-400 visited:bg-purple-600;
+}

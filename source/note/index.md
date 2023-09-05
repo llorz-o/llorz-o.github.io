@@ -11,6 +11,9 @@ date: 2022-10-14 17:20:20
 
 <!-- 色花堂账号密码 -->
 
+<!-- www.sehuatang.net -->
+
+<a class="link" href="www.sehuatang.net">色花堂</a>
 <div class="flex items-center py-1">
     <input class="input" id="sht_account" type="text" value="llorz_o" readonly>
     <button class="input-button" type="button"
@@ -19,7 +22,7 @@ date: 2022-10-14 17:20:20
     </button>
 </div>
 <div class="flex items-center py-1">
-    <input class="input" id="sht_password" type="text" value="zlc@ID725361" readonly>
+    <input class="input" id="sht_password" type="text" value="zlc&ID725361" readonly>
     <button class="input-button" type="button"
             onclick="document.getElementById('sht_password').select();document.execCommand('Copy');">
         复制
@@ -36,7 +39,6 @@ date: 2022-10-14 17:20:20
         复制
     </button>
 </div>
-
 
 
 
