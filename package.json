@@ -6,7 +6,7 @@
     "start": "hexo generate --watch",
     "build": "hexo generate",
     "clean": "hexo clean",
-    "deploy": "npm run build && git add . && git commit -m '' && git push",
+    "deploy": "npm run build && git add . && git commit -m 'update docs' && git push",
     "server": "hexo server",
     "style": "npx tailwindcss -i ./src/input.css -o ./themes/pure/source/css/tailwind.css --watch"
   },
