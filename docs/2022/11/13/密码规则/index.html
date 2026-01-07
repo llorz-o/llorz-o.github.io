@@ -20,15 +20,15 @@
   
   
   <title>加密规则设计 | llorz</title>
-  <meta name="description" content="Key 的结构:[name, length?, lowercase].id[6, digits]:[3，number] 虚拟币钱包地址:000 1234567891011121314151617# IV empty# Padding 0# Mode ECB# Input Raw# Output Hex# Key Hex# 000# HexContent # acc 1 abandon47a78b1">
+  <meta name="description" content="Key 的结构:[name, length?, lowercase].id[6, digits]:[3，number] 虚拟币钱包地址:000 1234567891011121314151617# IV empty# Padding 0# Mode ECB# Input Raw# Output Hex# Key Hex# 000# HexContent# acc 1 abandon47a78b1b">
 <meta property="og:type" content="article">
 <meta property="og:title" content="加密规则设计">
 <meta property="og:url" content="https://llorz-o.github.io/2022/11/13/%E5%AF%86%E7%A0%81%E8%A7%84%E5%88%99/index.html">
 <meta property="og:site_name" content="llorz">
-<meta property="og:description" content="Key 的结构:[name, length?, lowercase].id[6, digits]:[3，number] 虚拟币钱包地址:000 1234567891011121314151617# IV empty# Padding 0# Mode ECB# Input Raw# Output Hex# Key Hex# 000# HexContent # acc 1 abandon47a78b1">
+<meta property="og:description" content="Key 的结构:[name, length?, lowercase].id[6, digits]:[3，number] 虚拟币钱包地址:000 1234567891011121314151617# IV empty# Padding 0# Mode ECB# Input Raw# Output Hex# Key Hex# 000# HexContent# acc 1 abandon47a78b1b">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-11-13T05:13:00.000Z">
-<meta property="article:modified_time" content="2025-12-02T10:38:59.182Z">
+<meta property="article:modified_time" content="2026-01-07T07:38:06.852Z">
 <meta property="article:author" content="Richard Joe">
 <meta property="article:tag" content="加密货币">
 <meta property="article:tag" content="密码">
@@ -406,11 +406,11 @@
       
         <p>Key 的结构:<code>[name, length?, lowercase].id[6, digits]:[3，number]</code></p>
 <p>虚拟币钱包地址:<code>000</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># IV empty</span><br><span class="line"># Padding 0</span><br><span class="line"># Mode ECB</span><br><span class="line"># Input Raw</span><br><span class="line"># Output Hex</span><br><span class="line"># Key Hex</span><br><span class="line"># 000</span><br><span class="line"># HexContent </span><br><span class="line"></span><br><span class="line"># acc 1 abandon</span><br><span class="line">47a78b1ba057357cccb91f6c4f13603c1ced880b01e235ccfc513d231cf599816bcf3f7f2c72d3b349e6ee7e314182300bae77ba2b2d6728cebdcf31bb12d9ef578fc42c2ee78c58688dbbb47e1e0edc5ffe070757b4873d187fc8f4bb988528</span><br><span class="line"></span><br><span class="line"># acc 2 abandon</span><br><span class="line">961ae4ccbe15227ecb55c2f00ec3876e9b51d6e5459cc829436d7ccecf9e28d3d168c024e8c78d3bbebd63589b89b84c8970078b44eefd8088a8cb17b1a834edd4f59101e14ec90cc9ec1c546a3d40d0db233df46db0e23f45bc3d83f1b8510b</span><br><span class="line"></span><br><span class="line"># acc 3 jar use</span><br><span class="line">d8bb11671171723dee2ed622368b26b0d435e02c2c0d14aa47a7afbd8420a9472b5876adfa7b58baf4c58f83fe3a8dbd8de92c3de0ff6776a4245905163ed2f47b77694e491344d17c45970cc9fbb0f2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># IV empty</span><br><span class="line"># Padding 0</span><br><span class="line"># Mode ECB</span><br><span class="line"># Input Raw</span><br><span class="line"># Output Hex</span><br><span class="line"># Key Hex</span><br><span class="line"># 000</span><br><span class="line"># HexContent</span><br><span class="line"></span><br><span class="line"># acc 1 abandon</span><br><span class="line">47a78b1ba057357cccb91f6c4f13603c1ced880b01e235ccfc513d231cf599816bcf3f7f2c72d3b349e6ee7e314182300bae77ba2b2d6728cebdcf31bb12d9ef578fc42c2ee78c58688dbbb47e1e0edc5ffe070757b4873d187fc8f4bb988528</span><br><span class="line"></span><br><span class="line"># acc 2 abandon</span><br><span class="line">961ae4ccbe15227ecb55c2f00ec3876e9b51d6e5459cc829436d7ccecf9e28d3d168c024e8c78d3bbebd63589b89b84c8970078b44eefd8088a8cb17b1a834edd4f59101e14ec90cc9ec1c546a3d40d0db233df46db0e23f45bc3d83f1b8510b</span><br><span class="line"></span><br><span class="line"># acc 3 jar use</span><br><span class="line">d8bb11671171723dee2ed622368b26b0d435e02c2c0d14aa47a7afbd8420a9472b5876adfa7b58baf4c58f83fe3a8dbd8de92c3de0ff6776a4245905163ed2f47b77694e491344d17c45970cc9fbb0f2</span><br></pre></td></tr></table></figure>
 
 <p>虚拟钱包地址 对公</p>
 <p><code>ECB:256:ZeroPadding:Hex</code></p>
-<p>Key 的结构:<code>[name, length3, lowercase].id[6, digits]:[6，number]</code> </p>
+<p>Key 的结构:<code>[name, length3, lowercase].id[6, digits]:[6，number]</code></p>
 <p>Key <code>Base64</code></p>
 <p>虚拟币钱包地址:<code>20230806</code></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">042fcd9e6edad321d0e7dc804f4f0e112db231d031079ea7b62c576c4fb2d6982f95d0d9948edeacaeaa25d56752b82d4515332f2b3d7b8657311a5a4c4a4294b66099c2b273c05b14e93545d3f2bea9</span><br></pre></td></tr></table></figure>
@@ -429,6 +429,9 @@
 <p>Key <code>Base64 [name, alphabet, 5].[digit, 6].ID:[4211,,,]</code></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">e5d6375933cb7bdecd3b890b2553858b82173ca9c83e5fde201a9205ed9a7fc94e76e9e84bae70023d6105846960de8c477674c019bfae471a5e69749a6f0e426a5c3e04b06e239a35a5472754e3e8315f97e29ceb563d74a009f8002150cb70870802ffe6b59f85650e4fa881c35242</span><br></pre></td></tr></table></figure>
 
+<p>Firefox rc code</p>
+<p>Key <code>[right tattoo, 3].id[birth, 6]:260107</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Mode ECB 256 ZeroPadding</span></span><br><span class="line"><span class="comment"># Input Raw</span></span><br><span class="line"><span class="comment"># Output Hex</span></span><br><span class="line"><span class="comment"># Key Base64</span></span><br><span class="line"></span><br><span class="line">03d9d04631c0edf4243367d76d221d613aa557cc548be785da3312710fd9af2f5b093dc5425d918da0bdbce751f187cc</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -531,7 +534,7 @@
 
     <div class="copyright">
     	
-        &copy; 2025 Richard Joe
+        &copy; 2026 Richard Joe
         
         <div class="publishby">
         	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
